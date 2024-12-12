@@ -9596,6 +9596,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1092247053606139540, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
   m_PrefabInstance: {fileID: 1017567052}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2146080430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4964418635205813167, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+  m_PrefabInstance: {fileID: 1469478605116987175}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &166921265803256917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9785,6 +9790,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3811440824276694375, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_Size.x
+      value: 2.7461486
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811440824276694375, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_Size.y
+      value: 5.0463476
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811440824276694375, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.45219493
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811440824276694375, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.35774362
+      objectReference: {fileID: 0}
     - target: {fileID: 4964418635205813167, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: m_Name
       value: Fake Dragon 1
@@ -9804,13 +9825,52 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4964418635205813167, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8626403182902250523}
   m_SourcePrefab: {fileID: 100100000, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
 --- !u!4 &8626403182902250517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 146492872098069748, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
   m_PrefabInstance: {fileID: 1469478605116987175}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &8626403182902250523
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146080430}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.2616031, y: -1.3583214}
+  m_Radius: 1.7919332
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
