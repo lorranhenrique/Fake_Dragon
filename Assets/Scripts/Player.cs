@@ -47,6 +47,16 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && inDash==false)
         {
             speed = dashSpeed;
+            if (isJumping)
+            {
+                isJumping = false;
+                anim.SetBool("jump", false);
+            }
+            if (Input.GetAxis("Horizontal") != 0)
+            {
+                anim.SetTrigger("dash");
+            }
+            
             inDash = true;
             Invoke("posDash", 0.1f);
         }
@@ -132,6 +142,7 @@ public class Player : MonoBehaviour
         {
             isJumping = false;
             anim.SetBool("jump", false);
+            speed = defaultSpeed;
         }
         
     }
