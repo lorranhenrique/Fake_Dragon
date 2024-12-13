@@ -4,10 +4,17 @@ using UnityEngine.Rendering;
 public class Player : MonoBehaviour
 {
     public float speed;
+    public float defaultSpeed;
+    
+    public float dashSpeed;
+    public float dashRecharge;
+    public bool inDash;
+
     public float jumpForce;
-    private Rigidbody2D rig;
     public bool isJumping;
     public bool doubleJumping;
+
+    private Rigidbody2D rig;
     private Animator anim;
     public int munition;
 
@@ -21,6 +28,7 @@ public class Player : MonoBehaviour
     
     void Start()
     {
+        defaultSpeed = speed;
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
         Instance = this;
@@ -31,6 +39,30 @@ public class Player : MonoBehaviour
         Move();
         jump();
         shoot();
+        Dash();
+    }
+
+    void Dash()
+    {
+        if (Input.GetButtonDown("Fire2") && inDash==false)
+        {
+            speed = dashSpeed;
+            inDash = true;
+            Invoke("posDash", 0.1f);
+        }
+     
+    }
+
+    void posDash()
+    {
+        speed = defaultSpeed;
+        Invoke("dashEnd", dashRecharge);
+
+    }
+
+    void dashEnd()
+    {
+        inDash = false;
     }
 
     void Move()
