@@ -134,6 +134,7 @@ public class Player : MonoBehaviour
     {
         if (munition > 0 && !isBurned)
         {
+            munition--;
             anim.SetTrigger("fire");
             GameObject temp = Instantiate(bullet);
             temp.transform.position = gun.position;
@@ -142,7 +143,7 @@ public class Player : MonoBehaviour
             float direction = (transform.eulerAngles.y == 180) ? 1 : -1;
             temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
             Destroy(temp.gameObject, 3f);
-            munition--;
+            
         }
     }
 }
