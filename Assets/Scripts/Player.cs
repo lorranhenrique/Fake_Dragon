@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
         if (isBurned)
         {
             munition = 2;
-            //anim.SetTrigger("dash");
+            anim.SetBool("burn",true);
             Invoke("burnDelay", burnCooldown);
         }
     }
