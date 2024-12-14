@@ -22,6 +22,11 @@ public class Player : MonoBehaviour
     public Transform gun;
     private bool shot;
     public float shotForce;
+
+    public bool isBurned;
+    public float burnCooldown;
+
+
     private bool flipX = false;
 
     public static Player Instance;
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour
         jump();
         shoot();
         Dash();
+        burn();
     }
 
     void Dash()
@@ -121,7 +127,7 @@ public class Player : MonoBehaviour
 {
     if (Input.GetButtonDown("Fire1"))
     {
-        if (munition > 0)
+        if (munition > 0 && !isBurned)
         {
             anim.SetTrigger("fire");
             GameObject temp = Instantiate(bullet);
@@ -136,6 +142,20 @@ public class Player : MonoBehaviour
     }
 }
 
+    void burn()
+    {
+        if (isBurned)
+        {
+            munition = 2;
+            //anim.SetTrigger("dash");
+            Invoke("burnDelay", burnCooldown);
+        }
+    }
+    void burnDelay()
+    {
+        isBurned = false;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 8 || collision.gameObject.layer == 11)
@@ -146,7 +166,6 @@ public class Player : MonoBehaviour
         }
         
     }
-
 
     void OnCollisionExit2D(Collision2D collision)
     {

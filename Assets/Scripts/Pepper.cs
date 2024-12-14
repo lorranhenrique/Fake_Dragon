@@ -30,6 +30,11 @@ public class Pepper : MonoBehaviour
 
             Player.Instance.munition++;
 
+            if(Player.Instance.munition > 3)
+            {
+                Player.Instance.isBurned = true;
+            }
+
             Destroy(gameObject,0.6f);
         }
     }
