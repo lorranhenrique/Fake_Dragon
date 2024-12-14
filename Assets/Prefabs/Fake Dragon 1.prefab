@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3811440824276694375}
   - component: {fileID: 2729424208432285390}
   - component: {fileID: 6028937786869667302}
+  - component: {fileID: 807955332419047436}
   m_Layer: 9
   m_Name: Fake Dragon 1
   m_TagString: Player
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4964418635205813167}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.14, y: 2.01, z: 0.15569943}
   m_LocalScale: {x: 0.46319053, y: 0.46319053, z: 0.46319053}
   m_ConstrainProportionsScale: 0
@@ -148,7 +149,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.06146145, y: 0.24706483}
+  m_Offset: {x: -0.45219493, y: 0.18499303}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -158,7 +159,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.264876, y: 5.7506623}
+  m_Size: {x: 2.7461486, y: 4.700846}
   m_EdgeRadius: 0
 --- !u!50 &2729424208432285390
 Rigidbody2D:
@@ -176,7 +177,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 4
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a1889bc9636389d419075c268a6fcbe9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -199,11 +200,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e448acd979cd855479aa355d291d8bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 12
+  defaultSpeed: 0
+  dashSpeed: 50
+  dashRecharge: 0.4
+  inDash: 0
   jumpForce: 13
   isJumping: 0
   doubleJumping: 0
   munition: 0
+  bullet: {fileID: 846830654960347641, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
+  gun: {fileID: 3841837983927756003}
+  shotForce: 10
+  isBurned: 0
+  burnCooldown: 2
+--- !u!58 &807955332419047436
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4964418635205813167}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.2616031, y: -1.2519301}
+  m_Radius: 1.6855416
 --- !u!1 &6084039637192877733
 GameObject:
   m_ObjectHideFlags: 0
