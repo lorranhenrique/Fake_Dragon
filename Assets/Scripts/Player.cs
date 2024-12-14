@@ -52,7 +52,9 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire2") && inDash==false)
         {
+            defaultSpeed = speed; 
             speed = dashSpeed;
+
             if (isJumping)
             {
                 isJumping = false;
@@ -83,14 +85,17 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += movement * Time.deltaTime * speed;
-        if (Input.GetAxis("Horizontal") > 0)
+
+        float movement = Input.GetAxis("Horizontal");
+
+        rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocityY);
+
+        if (movement > 0)
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 180f, 0f); 
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if (movement < 0)
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f); 
@@ -158,11 +163,11 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 8 || collision.gameObject.layer == 11)
+        if (collision.gameObject.layer == 8)
         {
             isJumping = false;
             anim.SetBool("jump", false);
-            speed = defaultSpeed;
+            //speed = defaultSpeed;
         }
         
     }
