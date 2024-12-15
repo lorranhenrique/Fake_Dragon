@@ -137,6 +137,7 @@ public class Player : MonoBehaviour
             munition--;
             anim.SetTrigger("fire");
             GameObject temp = Instantiate(bullet);
+
             temp.transform.position = gun.position;
 
            
