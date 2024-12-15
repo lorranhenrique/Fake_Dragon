@@ -139,6 +139,7 @@ public class Player : MonoBehaviour
             GameObject temp = Instantiate(bullet);
 
             temp.transform.position = gun.position;
+           
 
            
             float direction = (transform.eulerAngles.y == 180) ? 1 : -1;
