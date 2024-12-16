@@ -20,14 +20,10 @@ public class Player : MonoBehaviour
 
     public GameObject bullet;
     public Transform gun;
-    private bool shot;
     public float shotForce;
 
     public bool isBurned;
     public float burnCooldown;
-
-
-    private bool flipX = false;
 
     public static Player Instance;
     
@@ -120,6 +116,7 @@ public class Player : MonoBehaviour
             {
                 if (doubleJumping)
                 {
+
                     rig.AddForce(new Vector3(0f, jumpForce), ForceMode2D.Impulse);
                     doubleJumping = false;
 

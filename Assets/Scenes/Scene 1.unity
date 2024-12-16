@@ -10055,6 +10055,10 @@ PrefabInstance:
       value: Fake Dragon 1
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: Jump
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: speed
       value: 17
       objectReference: {fileID: 0}
