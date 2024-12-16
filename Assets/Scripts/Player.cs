@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int munition;
 
     public GameObject bullet;
+    public float direction;
     public Transform gun;
     public float shotForce;
 
@@ -139,7 +140,7 @@ public class Player : MonoBehaviour
            
 
            
-            float direction = (transform.eulerAngles.y == 180) ? 1 : -1;
+            direction = (transform.eulerAngles.y == 180) ? 1 : -1;
             temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
             Destroy(temp.gameObject, 3f);
             
