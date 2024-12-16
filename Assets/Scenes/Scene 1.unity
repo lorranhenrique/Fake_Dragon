@@ -10079,6 +10079,10 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: MunitionText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: defaultSpeed
       value: 17
       objectReference: {fileID: 0}

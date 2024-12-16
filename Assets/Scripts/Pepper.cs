@@ -30,7 +30,7 @@ public class Pepper : MonoBehaviour
 
             Player.Instance.munition++;
 
-            if(Player.Instance.munition > 3)
+            if(Player.Instance.munition == 4)
             {
                 Player.Instance.isBurned = true;
             }
