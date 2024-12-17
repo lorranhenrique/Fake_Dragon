@@ -19,15 +19,12 @@ public class Player : MonoBehaviour
     public int munition;
 
     public GameObject bullet;
+    public float direction;
     public Transform gun;
-    private bool shot;
     public float shotForce;
 
     public bool isBurned;
     public float burnCooldown;
-
-
-    private bool flipX = false;
 
     public static Player Instance;
     
@@ -120,6 +117,7 @@ public class Player : MonoBehaviour
             {
                 if (doubleJumping)
                 {
+
                     rig.AddForce(new Vector3(0f, jumpForce), ForceMode2D.Impulse);
                     doubleJumping = false;
 
@@ -139,9 +137,10 @@ public class Player : MonoBehaviour
             GameObject temp = Instantiate(bullet);
 
             temp.transform.position = gun.position;
+           
 
            
-            float direction = (transform.eulerAngles.y == 180) ? 1 : -1;
+            direction = (transform.eulerAngles.y == 180) ? 1 : -1;
             temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
             Destroy(temp.gameObject, 3f);
             

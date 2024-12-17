@@ -9854,11 +9854,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2643083713384780374, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.1
+      value: 13.21
       objectReference: {fileID: 0}
     - target: {fileID: 2643083713384780374, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.25
+      value: -4.77
       objectReference: {fileID: 0}
     - target: {fileID: 2643083713384780374, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10055,6 +10055,10 @@ PrefabInstance:
       value: Fake Dragon 1
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: Jump
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: speed
       value: 17
       objectReference: {fileID: 0}
@@ -10073,6 +10077,10 @@ PrefabInstance:
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: shotForce
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: MunitionText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: defaultSpeed
