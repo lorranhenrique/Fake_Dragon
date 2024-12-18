@@ -1351,7 +1351,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5012564618067133800, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: m_Name
-      value: Pepper 1 (2)
+      value: Pepper 3
       objectReference: {fileID: 0}
     - target: {fileID: 5012564618067133800, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: m_TagString
@@ -3411,7 +3411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_Name
-      value: Collected (1)
+      value: Collected 2
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_IsActive
@@ -3771,7 +3771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_Name
-      value: Collected (3)
+      value: Collected 4
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_IsActive
@@ -3792,7 +3792,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5012564618067133800, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: m_Name
-      value: Pepper 1 (1)
+      value: Pepper 2
       objectReference: {fileID: 0}
     - target: {fileID: 5012564618067133800, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: m_TagString
@@ -3930,7 +3930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_Name
-      value: Collected (2)
+      value: Collected 3
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_IsActive
@@ -3961,7 +3961,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5012564618067133800, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: m_Name
-      value: Pepper 1 (3)
+      value: Pepper 4
       objectReference: {fileID: 0}
     - target: {fileID: 8411743661131601648, guid: 50cff01a784dab8459f10231d5c0c695, type: 3}
       propertyPath: collected
@@ -10092,7 +10092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_Name
-      value: Collected
+      value: Collected 1
       objectReference: {fileID: 0}
     - target: {fileID: 6548734827565358927, guid: 45f52ed94fbbaa44892725b0c9c7c7f1, type: 3}
       propertyPath: m_IsActive

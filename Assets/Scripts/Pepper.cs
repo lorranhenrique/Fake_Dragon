@@ -6,6 +6,7 @@ public class Pepper : MonoBehaviour
     private SpriteRenderer sr;
     private BoxCollider2D box;
     public GameObject collected;
+    public bool coletada;
 
 
     void Start()
@@ -22,20 +23,30 @@ public class Pepper : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Player")
+        if(collider.gameObject.tag == "Player" && !coletada)
         {
-            sr.enabled = false;
-            box.enabled = false;
-            collected.SetActive(true);
-
-            Player.Instance.munition++;
-
-            if(Player.Instance.munition == 4)
-            {
-                Player.Instance.isBurned = true;
-            }
-
-            Destroy(gameObject,0.6f);
+            coletada = true;
+            AdicionarMunicao();
         }
     }
+
+    void AdicionarMunicao()
+    {
+
+        Player.Instance.munition++;
+
+        sr.enabled = false;
+        box.enabled = false;
+        collected.SetActive(true);
+
+
+
+        if (Player.Instance.munition == 4)
+        {
+            Player.Instance.isBurned = true;
+        }
+
+        Destroy(gameObject, 0.6f);
+    }
 }
+
