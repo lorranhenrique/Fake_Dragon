@@ -3,6 +3,8 @@ using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
+    public ParticleSystem dust;
+
     public float speed;
     public float defaultSpeed;
     
@@ -87,15 +89,22 @@ public class Player : MonoBehaviour
 
         rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocityY);
 
+        if (Input.GetButtonDown("Horizontal"))
+        {
+            CreateDust();
+        }
+
         if (movement > 0)
         {
             anim.SetBool("walk", true);
-            transform.eulerAngles = new Vector3(0f, 180f, 0f); 
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+
         }
-        else if (movement < 0)
+        if (movement < 0)
         {
             anim.SetBool("walk", true);
-            transform.eulerAngles = new Vector3(0f, 0f, 0f); 
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
+
         }
         else
         {
@@ -112,6 +121,7 @@ public class Player : MonoBehaviour
                 rig.AddForce(new Vector2(0f, jumpForce),ForceMode2D.Impulse);
                 doubleJumping = true;
                 anim.SetBool("jump", true);
+                CreateDust();
             }
             else
             {
@@ -120,6 +130,7 @@ public class Player : MonoBehaviour
 
                     rig.AddForce(new Vector3(0f, jumpForce), ForceMode2D.Impulse);
                     doubleJumping = false;
+                    CreateDust();
 
                 }
             }
@@ -179,5 +190,16 @@ public class Player : MonoBehaviour
         {
             isJumping = true;
         }
+    }
+
+    void CreateDust()
+    {
+        dust.Play();
+        
+    }
+
+    void DisableDust()
+    {
+        dust.Stop();
     }
 }
