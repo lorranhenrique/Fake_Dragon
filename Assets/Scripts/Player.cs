@@ -46,14 +46,8 @@ public class Player : MonoBehaviour
         shoot();
         Dash();
         burn();
-
-        if (this.isJumping)
-        {
-            if (!Input.GetKey(KeyCode.Space))
-            {
-                applyJumpExtraGravity();
-            }
-        }
+        gravityJump();
+        
     }
 
     void applyJumpExtraGravity()
@@ -65,6 +59,17 @@ public class Player : MonoBehaviour
             this.rig.AddForce(extraGravity, ForceMode2D.Force);
         }
         
+    }
+
+    void gravityJump()
+    {
+        if (this.isJumping)
+        {
+            if (!Input.GetKey(KeyCode.Space))
+            {
+                applyJumpExtraGravity();
+            }
+        }
     }
 
     void Dash()
