@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public float jumpForce;
     public bool isJumping;
     public bool doubleJumping;
+    public float jumpExtraGravity;
 
     private Rigidbody2D rig;
     private Animator anim;
@@ -45,12 +46,32 @@ public class Player : MonoBehaviour
         shoot();
         Dash();
         burn();
+
+        if (this.isJumping)
+        {
+            if (!Input.GetKey(KeyCode.Space))
+            {
+                applyJumpExtraGravity();
+            }
+        }
+    }
+
+    void applyJumpExtraGravity()
+    {
+        Vector2 velocity = this.rig.linearVelocity;
+        if(velocity.y > 0)
+        {
+            Vector2 extraGravity = (this.jumpExtraGravity * Vector2.down);
+            this.rig.AddForce(extraGravity, ForceMode2D.Force);
+        }
+        
     }
 
     void Dash()
     {
         if (Input.GetButtonDown("Fire2") && inDash==false)
         {
+            
             defaultSpeed = speed; 
             speed = dashSpeed;
 
@@ -122,6 +143,10 @@ public class Player : MonoBehaviour
                 doubleJumping = true;
                 anim.SetBool("jump", true);
                 CreateDust();
+                if(rig.linearVelocity.y < 0)
+                {
+                    jumpForce -= rig.linearVelocity.y;
+                }
             }
             else
             {

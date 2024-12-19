@@ -14941,7 +14941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2729424208432285390, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: m_GravityScale
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3841837983927756003, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14977,7 +14977,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: jumpForce
-      value: 24
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: shotForce
@@ -14994,6 +14994,10 @@ PrefabInstance:
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: doubleJumping
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: jumpExtraGravity
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
