@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public GameObject blow; // Objeto com a animação de explosão
+    public GameObject blow;
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
+    public ParticleSystem smoke;
 
     void Start()
     {
+
+        smoke.Play();
         circle = GetComponent<CircleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -16,11 +19,12 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == 8) // Layer do chão ou muro
+        if (collider.gameObject.layer == 8) 
         {
             
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            smoke.Stop();
 
            
             circle.enabled = false;
