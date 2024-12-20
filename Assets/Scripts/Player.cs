@@ -152,7 +152,6 @@ public class Player : MonoBehaviour
         {
             if (!isJumping)
             {
-                //rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 rig.linearVelocity = new Vector2(rig.linearVelocityX, 0);
                 rig.linearVelocity += Vector2.up * jumpForce;
                 doubleJumping = true;
@@ -167,8 +166,6 @@ public class Player : MonoBehaviour
             {
                 if (doubleJumping)
                 {
-
-                    //rig.AddForce(new Vector3(0f, jumpForce), ForceMode2D.Impulse);
                     rig.linearVelocity = new Vector2(rig.linearVelocityX, 0);
                     rig.linearVelocity += Vector2.up * jumpForce;
                     doubleJumping = false;
