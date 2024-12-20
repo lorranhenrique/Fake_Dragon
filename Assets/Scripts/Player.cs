@@ -1,5 +1,8 @@
+using Unity.Mathematics;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class Player : MonoBehaviour
 {
@@ -41,7 +44,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Move();
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+
+        Vector2 dir = new Vector2(x, y);
+
+        Move(dir);
         jump();
         shoot();
         Dash();
@@ -108,25 +116,25 @@ public class Player : MonoBehaviour
         inDash = false;
     }
 
-    void Move()
+    void Move(Vector2 dir)
     {
 
-        float movement = Input.GetAxis("Horizontal");
+        
 
-        rig.linearVelocity = new Vector2(movement * speed, rig.linearVelocityY);
+        rig.linearVelocity = new Vector2(dir.x * speed, rig.linearVelocityY);
 
         if (Input.GetButtonDown("Horizontal"))
         {
             CreateDust();
         }
 
-        if (movement > 0)
+        if (dir.x > 0)
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
 
         }
-        else if (movement < 0)
+        else if (dir.x < 0)
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
@@ -144,11 +152,11 @@ public class Player : MonoBehaviour
         {
             if (!isJumping)
             {
-                rig.AddForce(new Vector2(0f, jumpForce),ForceMode2D.Impulse);
+                rig.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 doubleJumping = true;
                 anim.SetBool("jump", true);
                 CreateDust();
-                if(rig.linearVelocity.y < 0)
+                if (rig.linearVelocity.y < 0)
                 {
                     jumpForce -= rig.linearVelocity.y;
                 }
@@ -156,7 +164,7 @@ public class Player : MonoBehaviour
             else
             {
                 if (doubleJumping)
-                {
+                {       
 
                     rig.AddForce(new Vector3(0f, jumpForce), ForceMode2D.Impulse);
                     doubleJumping = false;
