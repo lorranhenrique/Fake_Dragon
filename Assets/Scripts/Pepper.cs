@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Pepper : MonoBehaviour
@@ -47,6 +48,14 @@ public class Pepper : MonoBehaviour
         }
 
         Destroy(gameObject, 0.6f);
+    }
+
+    public event Action OnDestroyed;
+
+    private void OnDestroy()
+    {
+        
+        OnDestroyed?.Invoke();
     }
 }
 
