@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -182,20 +183,27 @@ public class Player : MonoBehaviour
     {
         if (munition > 0 && !isBurned)
         {
-            munition--;
+                
+
             anim.SetTrigger("fire");
+            
+            
             GameObject temp = Instantiate(bullet);
 
             temp.transform.position = gun.position;
-           
-
-           
+            
             direction = (transform.eulerAngles.y == 180) ? 1 : -1;
             temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
-            Destroy(temp.gameObject, 3f);
+
+
+            temp.GetComponent<Bullet>().damage = munition;
             
+
+            munition = 0;
+            Destroy(temp.gameObject, 3f);
+
+            }
         }
-    }
 }
 
     void burn()
@@ -207,6 +215,7 @@ public class Player : MonoBehaviour
             Invoke("burnDelay", burnCooldown);
         }
     }
+
     void burnDelay()
     {
         isBurned = false;
