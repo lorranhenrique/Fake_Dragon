@@ -182,16 +182,16 @@ public class Player : MonoBehaviour
     {
         if (munition > 0 && !isBurned)
         {
-            munition--;
+            
             anim.SetTrigger("fire");
             GameObject temp = Instantiate(bullet);
 
             temp.transform.position = gun.position;
-           
-
-           
             direction = (transform.eulerAngles.y == 180) ? 1 : -1;
             temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+            temp.GetComponent<Bullet>().damage = munition;
+
+            munition = 0;
             Destroy(temp.gameObject, 3f);
             
         }

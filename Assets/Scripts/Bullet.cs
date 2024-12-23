@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour
     private SpriteRenderer sr;
     private Rigidbody2D rb;
     public ParticleSystem smoke;
+    public static Bullet Instance;
+    public int damage;
 
     void Start()
     {
@@ -15,6 +17,7 @@ public class Bullet : MonoBehaviour
         circle = GetComponent<CircleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        Instance = this;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
