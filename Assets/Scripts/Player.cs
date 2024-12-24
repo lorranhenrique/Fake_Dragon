@@ -202,7 +202,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+                    temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(2 * shotForce * direction, 0f);
                 }
             
             munition = 0;

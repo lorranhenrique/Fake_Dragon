@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public ParticleSystem smoke;
     public static Bullet Instance;
     public int damage;
+    public float acelerator;
 
     void Start()
     {
@@ -20,6 +21,11 @@ public class Bullet : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.layer == 8) 
@@ -27,6 +33,7 @@ public class Bullet : MonoBehaviour
             
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            acelerator = 0f;
             smoke.Stop();
 
            
