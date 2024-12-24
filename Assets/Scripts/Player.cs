@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public float direction;
     public Transform gun;
     public float shotForce;
+    public float megaShotForce;
 
     public bool isBurned;
     public float burnCooldown;
@@ -183,15 +184,27 @@ public class Player : MonoBehaviour
     {
             if (munition > 0 && !isBurned )
         {
+                GameObject temp = Instantiate(bullet);
+                anim.SetTrigger("fire");
+                temp.transform.position = gun.position;
+                direction = (transform.eulerAngles.y == 180) ? 1 : -1;
+                temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+                temp.GetComponent<Bullet>().damage = munition;
+
+                if (munition == 3)
+                {
+                    temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(megaShotForce * direction, 0f);
+                    temp.transform.localScale = new Vector3(0.24f, 0.14f, 0.189f);
+                    if (ColorUtility.TryParseHtmlString("#FFBDD6", out Color newColor))
+                    {
+                        temp.GetComponent<SpriteRenderer>().color = newColor;
+                    }
+                }
+                else
+                {
+                    temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+                }
             
-            anim.SetTrigger("fire");
-            GameObject temp = Instantiate(bullet);
-
-            temp.transform.position = gun.position;
-            direction = (transform.eulerAngles.y == 180) ? 1 : -1;
-            temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
-            temp.GetComponent<Bullet>().damage = munition;
-
             munition = 0;
             Destroy(temp.gameObject, 3f);
             
