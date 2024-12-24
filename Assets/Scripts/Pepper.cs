@@ -40,13 +40,6 @@ public class Pepper : MonoBehaviour
         box.enabled = false;
         collected.SetActive(true);
 
-
-
-        if (Player.Instance.munition == 4)
-        {
-            Player.Instance.isBurned = true;
-        }
-
         Destroy(gameObject, 0.6f);
     }
 

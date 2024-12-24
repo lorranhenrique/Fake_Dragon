@@ -6,7 +6,7 @@ public class PepperGenerator : MonoBehaviour
     public GameObject Pepper; 
     public int pepperLimit = 1; 
     private int pepperCount = 0; 
-    public float spawnInterval = 5f; 
+    public float spawnInterval = 10f; 
     void Start()
     {
         StartCoroutine(SpawnPeppers());

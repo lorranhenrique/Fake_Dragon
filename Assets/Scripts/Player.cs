@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
         Dash();
         burn();
         gravityJump();
+        Burned();
         
     }
 
@@ -180,7 +181,7 @@ public class Player : MonoBehaviour
 {
     if (Input.GetButtonDown("Fire1"))
     {
-        if (munition > 0 && !isBurned)
+            if (munition > 0 && !isBurned )
         {
             
             anim.SetTrigger("fire");
@@ -197,20 +198,29 @@ public class Player : MonoBehaviour
         }
     }
 }
+    void Burned()
+    {
+        if(munition == 4)
+        {
+            isBurned = true;
+        }
+    }
 
     void burn()
     {
         if (isBurned)
         {
             munition = 2;
-            anim.SetBool("burn",true);
+            anim.SetTrigger("burn");
             Invoke("burnDelay", burnCooldown);
         }
     }
     void burnDelay()
     {
         isBurned = false;
+        anim.ResetTrigger("burn");
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
