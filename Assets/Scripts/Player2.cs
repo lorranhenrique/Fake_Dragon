@@ -141,6 +141,7 @@ public class Player2 : MonoBehaviour
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
 
+
         }
         else
         {
