@@ -27,14 +27,32 @@ public class Pepper : MonoBehaviour
         if(collider.gameObject.tag == "Player" && !coletada)
         {
             coletada = true;
-            AdicionarMunicao();
+            AdicionarMunicaoPlayer1();
         }
+        if (collider.gameObject.tag == "Player2" && !coletada)
+        {
+            coletada = true;
+            AdicionarMunicaoPlayer2();
+        }
+
     }
 
-    void AdicionarMunicao()
+    void AdicionarMunicaoPlayer1()
     {
 
         Player.Instance.munition++;
+
+        sr.enabled = false;
+        box.enabled = false;
+        collected.SetActive(true);
+
+        Destroy(gameObject, 0.6f);
+    }
+
+    void AdicionarMunicaoPlayer2()
+    {
+
+        Player2.Instance.munition++;
 
         sr.enabled = false;
         box.enabled = false;

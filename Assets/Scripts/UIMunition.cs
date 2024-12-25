@@ -19,5 +19,9 @@ public class UIMunition : MonoBehaviour
         {
             textMeshPro.text = Player.Instance.munition.ToString();
         }
+        if (Player2.Instance != null && textMeshPro != null)
+        {
+            textMeshPro.text = Player2.Instance.munition.ToString();
+        }
     }
 }
