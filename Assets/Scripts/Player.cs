@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -184,6 +185,7 @@ public class Player : MonoBehaviour
     {
             if (munition > 0 && !isBurned )
         {
+
                 GameObject temp = Instantiate(bullet);
                 anim.SetTrigger("fire");
                 temp.transform.position = gun.position;
@@ -207,9 +209,9 @@ public class Player : MonoBehaviour
             
             munition = 0;
             Destroy(temp.gameObject, 3f);
-            
+
+            }
         }
-    }
 }
     void Burned()
     {
@@ -228,6 +230,7 @@ public class Player : MonoBehaviour
             Invoke("burnDelay", burnCooldown);
         }
     }
+
     void burnDelay()
     {
         isBurned = false;
