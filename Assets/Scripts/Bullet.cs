@@ -7,9 +7,11 @@ public class Bullet : MonoBehaviour
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
-    public ParticleSystem smoke;
-    public int damage;
+    public ParticleSystem smoke
     public static Bullet Instance;
+    public int damage;
+    public float acelerator;
+
 
     void Start()
     {
@@ -20,6 +22,7 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Instance = this;
     }
+
 
     void animationTypeChange()
     {
@@ -38,6 +41,11 @@ public class Bullet : MonoBehaviour
                 Debug.Log("Erro de disparo");
                 break;
         }
+
+    private void Update()
+    {
+        rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -47,6 +55,7 @@ public class Bullet : MonoBehaviour
             
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            acelerator = 0f;
             smoke.Stop();
 
            

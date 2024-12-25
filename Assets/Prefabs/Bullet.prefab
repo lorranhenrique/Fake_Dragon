@@ -192,6 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blow: {fileID: 3867909321147491487}
   smoke: {fileID: 7916463542187213068}
+  damage: 0
+  acelerator: 10
 --- !u!1 &3867909321147491487
 GameObject:
   m_ObjectHideFlags: 0

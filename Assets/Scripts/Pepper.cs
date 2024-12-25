@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Pepper : MonoBehaviour
@@ -39,14 +40,15 @@ public class Pepper : MonoBehaviour
         box.enabled = false;
         collected.SetActive(true);
 
-
-
-        if (Player.Instance.munition == 4)
-        {
-            Player.Instance.isBurned = true;
-        }
-
         Destroy(gameObject, 0.6f);
+    }
+
+    public event Action OnDestroyed;
+
+    private void OnDestroy()
+    {
+        
+        OnDestroyed?.Invoke();
     }
 }
 
