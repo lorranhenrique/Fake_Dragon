@@ -1,14 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet1 : MonoBehaviour
 {
     public GameObject blow;
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
     public ParticleSystem smoke;
-    public static Bullet Instance;
+    public static Bullet1 Instance;
     public int damage;
     public float acelerator;
 
