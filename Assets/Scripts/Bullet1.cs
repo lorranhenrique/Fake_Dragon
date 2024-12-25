@@ -1,16 +1,17 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bullet1 : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public GameObject blow;
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
     public ParticleSystem smoke;
-    public static Bullet1 Instance;
+    public static Bullet Instance;
     public int damage;
     public float acelerator;
+    public int shooter;
 
 
     void Start()
@@ -45,7 +46,15 @@ public class Bullet1 : MonoBehaviour
 
     private void Update()
     {
-        rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+        if(shooter == 1)
+        {
+            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+        }
+        if (shooter == 2)
+        {
+            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player2.Instance.direction, 0f);
+        }
+
 
     }
 

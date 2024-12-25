@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6475c542f3ff55e41918b2688f66bd8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pepper: {fileID: 4785319244727971968, guid: d64f7dc0e1f415f43bad1b1625fd57d5, type: 3}
+  Pepper: {fileID: 7167936967935002584, guid: d64f7dc0e1f415f43bad1b1625fd57d5, type: 3}
   pepperLimit: 1
   spawnInterval: 5
 --- !u!65 &7102180953923721929
