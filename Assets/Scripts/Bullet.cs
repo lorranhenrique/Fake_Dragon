@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
-    public ParticleSystem smoke
+    public ParticleSystem smoke;
     public static Bullet Instance;
     public int damage;
     public float acelerator;
@@ -41,6 +41,7 @@ public class Bullet : MonoBehaviour
                 Debug.Log("Erro de disparo");
                 break;
         }
+    }
 
     private void Update()
     {

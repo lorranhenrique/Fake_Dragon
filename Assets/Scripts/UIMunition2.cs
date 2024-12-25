@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UIMunition : MonoBehaviour
+public class UIMunition2 : MonoBehaviour
 {
     public TMP_Text textMeshPro;
 
@@ -15,10 +15,6 @@ public class UIMunition : MonoBehaviour
 
     void Update()
     {
-        if (Player.Instance != null && textMeshPro != null)
-        {
-            textMeshPro.text = Player.Instance.munition.ToString();
-        }
         if (Player2.Instance != null && textMeshPro != null)
         {
             textMeshPro.text = Player2.Instance.munition.ToString();

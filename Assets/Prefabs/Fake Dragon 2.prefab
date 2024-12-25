@@ -269,6 +269,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c00abb192867bb42b272c51bedec1fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dust: {fileID: 0}
+  speed: 0
+  defaultSpeed: 0
+  dashSpeed: 0
+  dashRecharge: 0
+  inDash: 0
+  jumpForce: 0
+  isJumping: 0
+  doubleJumping: 0
+  jumpExtraGravity: 0
+  munition: 0
+  bullet: {fileID: 0}
+  direction: 0
+  gun: {fileID: 0}
+  shotForce: 0
+  megaShotForce: 0
+  isBurned: 0
+  burnCooldown: 0
 --- !u!1 &5806079420912998042
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +298,6 @@ GameObject:
   - component: {fileID: 8332583691327349725}
   - component: {fileID: 7830935028304566178}
   - component: {fileID: 7263945810374305333}
-  - component: {fileID: 8874979092287813238}
   m_Layer: 12
   m_Name: Munition
   m_TagString: Untagged
@@ -406,19 +423,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8874979092287813238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5806079420912998042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d210a22d223a549a11a0241952bd43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 0}
 --- !u!1 &5966223670412352914
 GameObject:
   m_ObjectHideFlags: 0
