@@ -193,8 +193,7 @@ public class Player2 : MonoBehaviour
                 temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
 
                 temp.GetComponent<Bullet>().damage = munition;
-                temp.GetComponent<Bullet>().atirador = 2;
-
+                temp.GetComponent<Bullet>().shooter = 2;
 
                 if (munition == 3)
                 {

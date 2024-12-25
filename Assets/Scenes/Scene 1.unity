@@ -10180,7 +10180,7 @@ PrefabInstance:
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 846830654960347641, guid: dea2a509682e76d46a64a99f0aca1b7e, type: 3}
+      objectReference: {fileID: 846830654960347641, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: dashSpeed
       value: 70
