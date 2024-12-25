@@ -191,7 +191,12 @@ public class Player : MonoBehaviour
                 temp.transform.position = gun.position;
                 direction = (transform.eulerAngles.y == 180) ? 1 : -1;
                 temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+<<<<<<< HEAD
+                temp.GetComponent<Bullet>().damage = munition;
+                temp.GetComponent<Bullet>().atirador = 1;
+=======
                 temp.GetComponent<Bullet1>().damage = munition;
+>>>>>>> main
 
                 if (munition == 3)
                 {

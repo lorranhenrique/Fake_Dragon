@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using UnityEditor.Rendering;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -190,7 +191,12 @@ public class Player2 : MonoBehaviour
                 temp.transform.position = gun.position;
                 direction = (transform.eulerAngles.y == 180) ? 1 : -1;
                 temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
+<<<<<<< HEAD
+                temp.GetComponent<Bullet>().damage = munition;
+                temp.GetComponent<Bullet>().atirador = 2;
+=======
                 temp.GetComponent<Bullet2>().damage = munition;
+>>>>>>> main
 
                 if (munition == 3)
                 {

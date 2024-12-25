@@ -11,6 +11,7 @@ public class Bullet1 : MonoBehaviour
     public static Bullet1 Instance;
     public int damage;
     public float acelerator;
+    public int atirador;
 
 
     void Start()
@@ -45,7 +46,15 @@ public class Bullet1 : MonoBehaviour
 
     private void Update()
     {
-        rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+        if(atirador == 1)
+        {
+            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+        }
+        else
+        {
+            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player2.Instance.direction, 0f);
+        }
+        
 
     }
 
