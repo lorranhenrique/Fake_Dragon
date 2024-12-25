@@ -49,6 +49,7 @@ public class Pepper : MonoBehaviour
         Destroy(gameObject, 0.6f);
     }
 
+
     void AdicionarMunicaoPlayer2()
     {
 
