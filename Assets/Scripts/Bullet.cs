@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -6,14 +7,15 @@ public class Bullet : MonoBehaviour
     private CircleCollider2D circle;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
-    public ParticleSystem smoke;
+    public ParticleSystem smoke
     public static Bullet Instance;
     public int damage;
     public float acelerator;
 
+
     void Start()
     {
-
+        
         smoke.Play();
         circle = GetComponent<CircleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
@@ -21,9 +23,29 @@ public class Bullet : MonoBehaviour
         Instance = this;
     }
 
+
+    void animationTypeChange()
+    {
+        switch (damage)
+        {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default:
+                Debug.Log("Erro de disparo");
+                break;
+        }
+
     private void Update()
     {
         rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -44,7 +66,7 @@ public class Bullet : MonoBehaviour
             blow.SetActive(true);
 
             
-            Destroy(gameObject, 0.6f);
+            Destroy(gameObject, 0.5f);
         }
     }
 }
