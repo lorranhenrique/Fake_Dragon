@@ -4173,7 +4173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4945049579485525228, guid: 036fe18e438b9264db50744233abc600, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.07300222
+      value: 0.07300186
       objectReference: {fileID: 0}
     - target: {fileID: 4945049579485525228, guid: 036fe18e438b9264db50744233abc600, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4289,11 +4289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9211483799408630428, guid: 036fe18e438b9264db50744233abc600, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -37.3
+      value: -37.300003
       objectReference: {fileID: 0}
     - target: {fileID: 9211483799408630428, guid: 036fe18e438b9264db50744233abc600, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -7.6
+      value: -7.6000004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10574,9 +10574,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1071462942082178788, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 79.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302856821852585237, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.38
+      objectReference: {fileID: 0}
     - target: {fileID: 4964418635205813167, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: m_Name
       value: Fake Dragon 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: fire
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: life
@@ -10743,6 +10755,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 781546755054185274}
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: fire
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: life
       value: 3
       objectReference: {fileID: 0}
@@ -10769,6 +10785,10 @@ PrefabInstance:
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: jumpForce
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: shotForce
@@ -10862,9 +10882,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6843331532943117994, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843331532943117994, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7623220047903236284, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: m_Layer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8332583691327349725, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 80.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8332583691327349725, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -19.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
