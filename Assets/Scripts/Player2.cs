@@ -4,6 +4,7 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.UI;
 
 public class Player2 : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class Player2 : MonoBehaviour
     public bool isBurned;
     public float burnCooldown;
 
+    public int life;
+    public int maxLife;
+    public Image[] coracao;
+    public Sprite cheio;
+
     public static Player2 Instance;
 
     void Start()
@@ -58,7 +64,23 @@ public class Player2 : MonoBehaviour
         burn();
         gravityJump();
         Burned();
+        HealthLogic();
 
+    }
+
+    void HealthLogic()
+    {
+        for (int i = 0; i < coracao.Length; i++)
+        {
+            if (i < life)
+            {
+                coracao[i].enabled = true;
+            }
+            else
+            {
+                coracao[i].enabled = false;
+            }
+        }
     }
 
     void applyJumpExtraGravity()
