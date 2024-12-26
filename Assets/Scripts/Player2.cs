@@ -38,7 +38,6 @@ public class Player2 : MonoBehaviour
     public int life;
     public int maxLife;
     public Image[] coracao;
-    public Sprite cheio;
 
     public static Player2 Instance;
 
