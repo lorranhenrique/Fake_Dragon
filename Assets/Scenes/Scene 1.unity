@@ -10759,6 +10759,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
+      propertyPath: jumpForce
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6028937786869667302, guid: b14cfb09688c322488d594428cb3dc74, type: 3}
       propertyPath: coracao.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -10975,7 +10979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: jumpExtraGravity
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3354379522887585188, guid: b83a22aa459892c4c9530986c03596c8, type: 3}
       propertyPath: coracao.Array.size
