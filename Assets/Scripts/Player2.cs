@@ -56,16 +56,17 @@ public class Player2 : MonoBehaviour
 
         Vector2 dir = new Vector2(x, y);
 
-        Move(dir);
-        jump();
+        //Move(dir);
+        //jump();
         shoot();
-        Dash();
+        //Dash();
         burn();
         gravityJump();
         Burned();
         HealthLogic();
 
     }
+
 
     void HealthLogic()
     {

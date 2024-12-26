@@ -65,7 +65,6 @@ public class Player : MonoBehaviour
         Burned();
         HealthLogic();
 
-
     }
 
     void HealthLogic()

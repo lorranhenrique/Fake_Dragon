@@ -62,7 +62,6 @@ public class Bullet : MonoBehaviour
     {
         if (collider.gameObject.layer == 8) 
         {
-            
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
             acelerator = 0f;
@@ -76,6 +75,44 @@ public class Bullet : MonoBehaviour
             blow.SetActive(true);
 
             
+            Destroy(gameObject, 0.5f);
+        }
+        if (collider.gameObject.layer == 12 && shooter == 1)
+        {
+            Player2.Instance.life -= damage;
+
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            acelerator = 0f;
+            smoke.Stop();
+
+
+            circle.enabled = false;
+            sr.enabled = false;
+
+
+            blow.SetActive(true);
+
+
+            Destroy(gameObject, 0.5f);
+        }
+        if (collider.gameObject.layer == 9 && shooter == 2)
+        {
+            Player.Instance.life -= damage;
+
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            acelerator = 0f;
+            smoke.Stop();
+
+
+            circle.enabled = false;
+            sr.enabled = false;
+
+
+            blow.SetActive(true);
+
+
             Destroy(gameObject, 0.5f);
         }
     }
