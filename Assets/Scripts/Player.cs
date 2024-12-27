@@ -4,6 +4,7 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -101,8 +102,13 @@ public class Player : MonoBehaviour
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-            Destroy(gameObject,0.6f);
+            Invoke("restart", 0.6f);
         }
+    }
+
+    void restart()
+    {
+        SceneManager.LoadScene("Scene 1");
     }
 
     void applyJumpExtraGravity()
