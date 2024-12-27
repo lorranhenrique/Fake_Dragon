@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class Player2 : MonoBehaviour
 {
     public ParticleSystem dust;
+    public ParticleSystem fire;
 
     public float speed;
     public float defaultSpeed;
@@ -64,6 +65,7 @@ public class Player2 : MonoBehaviour
         gravityJump();
         Burned();
         HealthLogic();
+        overCharge();
 
     }
 
@@ -289,5 +291,13 @@ public class Player2 : MonoBehaviour
     void DisableDust()
     {
         dust.Stop();
+    }
+
+    void overCharge()
+    {
+        if (munition == 3 && !fire.isPlaying)
+        {
+            fire.Play();
+        }
     }
 }
