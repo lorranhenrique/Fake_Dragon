@@ -39,6 +39,11 @@ public class Player2 : MonoBehaviour
     public int life;
     public int maxLife;
     public Image[] coracao;
+    public GameObject blow;
+
+    public SpriteRenderer sr;
+    public BoxCollider2D box;
+    public CircleCollider2D circle;
 
     public static Player2 Instance;
 
@@ -47,6 +52,9 @@ public class Player2 : MonoBehaviour
         defaultSpeed = speed;
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
+        circle = GetComponent<CircleCollider2D>();
+        box = GetComponent<BoxCollider2D>();
         Instance = this;
     }
 
@@ -82,6 +90,18 @@ public class Player2 : MonoBehaviour
             {
                 coracao[i].enabled = false;
             }
+        }
+        if (life == 0)
+        {
+            sr.enabled = false;
+            blow.SetActive(true);
+
+            gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+            Destroy(gameObject, 0.6f);
         }
     }
 
