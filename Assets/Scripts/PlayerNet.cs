@@ -65,6 +65,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        if (!photonView.IsMine)
+            return;
+
+        // Apenas o jogador local controla movimento, salto e lógica
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -322,11 +326,24 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision == null || collision.gameObject == null)
+        {
+            Debug.LogError("Collision ou collision.gameObject está nulo.");
+            return;
+        }
+
         if (collision.gameObject.layer == 8)
         {
             isJumping = false;
-            anim.SetBool("jump", false);
-            //speed = defaultSpeed;
+
+            if (anim != null)
+            {
+                anim.SetBool("jump", false);
+            }
+            else
+            {
+                Debug.LogWarning("Animator não foi inicializado.");
+            }
         }
 
     }
