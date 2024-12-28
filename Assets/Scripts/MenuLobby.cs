@@ -1,10 +1,13 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuLobby : MonoBehaviour
+public class MenuLobby : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Text listaDeJogadores;
     [SerializeField] private Button comecaJogo;
+
+    [PunRPC] 
 
     public void AtualizaLista()
     {

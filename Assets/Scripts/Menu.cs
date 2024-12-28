@@ -21,7 +21,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         mudaMenu(menuLobby.gameObject);
-        menuLobby.AtualizaLista();
+        menuLobby.photonView.RPC("AtualizaLista", RpcTarget.All);
     }
 
     public void mudaMenu(GameObject menu)
@@ -30,5 +30,22 @@ public class Menu : MonoBehaviourPunCallbacks
         menuLobby.gameObject.SetActive(false);
 
         menu.SetActive(true);
+    }
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        menuLobby.AtualizaLista();
+    }
+
+    public void SairDoLobby()
+    {
+        GestorDeRede.Instance.SairDoLobby();
+        mudaMenu(menuEntrada.gameObject);
+    }
+
+    public void ComecaJogo(string nomeCena)
+    {
+        GestorDeRede.Instance.photonView.RPC("ComecaJogo", RpcTarget.All, nomeCena);
+        mudaMenu(menuEntrada.gameObject);
     }
 }
