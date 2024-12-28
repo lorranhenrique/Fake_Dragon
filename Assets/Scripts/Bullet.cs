@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
     {
         if(shooter == 1)
         {
-            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player.Instance.direction, 0f);
+            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * PlayerNet.Instance.direction, 0f);
         }
         if(shooter == 2)
         {
@@ -98,7 +98,7 @@ public class Bullet : MonoBehaviour
         }
         if (collider.gameObject.layer == 9 && shooter == 2)
         {
-            Player.Instance.life -= damage;
+            PlayerNet.Instance.life -= damage;
 
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;

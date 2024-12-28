@@ -1,20 +1,20 @@
 using System;
+using Photon.Pun;
 using Unity.Mathematics;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Photon.Realtime;
 
-public class Player : MonoBehaviour
+public class PlayerNet : MonoBehaviourPunCallbacks
 {
     public ParticleSystem dust;
     public ParticleSystem fire;
 
     public float speed;
     public float defaultSpeed;
-    
+
     public float dashSpeed;
     public float dashRecharge;
     public bool inDash;
@@ -46,8 +46,12 @@ public class Player : MonoBehaviour
     public BoxCollider2D box;
     public CircleCollider2D circle;
 
-    public static Player Instance;
-    
+    public static PlayerNet Instance;
+
+    private PlayerNet jogador = null;
+    private Player photonPlayer;
+    private int id;
+
     void Start()
     {
         defaultSpeed = speed;
@@ -73,9 +77,36 @@ public class Player : MonoBehaviour
         burn();
         gravityJump();
         Burned();
-        HealthLogic();
+        //HealthLogic();
         overCharge();
 
+    }
+
+    [PunRPC]
+
+    public void Inicialize(Player player)
+    {
+        photonPlayer = player;
+        id = player.ActorNumber;
+
+        if (GameManager.Instance == null || GameManager.Instance.Jogadores == null)
+        {
+            Debug.LogError("GameManager ou lista de jogadores não inicializados.");
+            return;
+        }
+
+        if (GameManager.Instance.Jogadores.Exists(j => j.photonView.Owner == photonView.Owner))
+        {
+            Debug.LogWarning("Jogador já está na lista.");
+            return;
+        }
+
+        GameManager.Instance.Jogadores.Add(this);
+
+        if (!photonView.IsMine)
+        {
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
     }
 
     void HealthLogic()
@@ -92,7 +123,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(life == 0)
+        if (life == 0)
         {
             sr.enabled = false;
             blow.SetActive(true);
@@ -114,12 +145,12 @@ public class Player : MonoBehaviour
     void applyJumpExtraGravity()
     {
         Vector2 velocity = this.rig.linearVelocity;
-        if(velocity.y > 0)
+        if (velocity.y > 0)
         {
             Vector2 extraGravity = (this.jumpExtraGravity * Vector2.down);
             this.rig.AddForce(extraGravity, ForceMode2D.Force);
         }
-        
+
     }
 
     void gravityJump()
@@ -135,10 +166,10 @@ public class Player : MonoBehaviour
 
     void Dash()
     {
-        if (Input.GetButtonDown("Fire2") && inDash==false)
+        if (Input.GetButtonDown("Fire2") && inDash == false)
         {
-            
-            defaultSpeed = speed; 
+
+            defaultSpeed = speed;
             speed = dashSpeed;
 
             if (isJumping)
@@ -150,11 +181,11 @@ public class Player : MonoBehaviour
             {
                 anim.SetTrigger("dash");
             }
-            
+
             inDash = true;
             Invoke("posDash", 0.1f);
         }
-     
+
     }
 
     void posDash()
@@ -172,7 +203,7 @@ public class Player : MonoBehaviour
     void Move(Vector2 dir)
     {
 
-        
+
 
         rig.linearVelocity = new Vector2(dir.x * speed, rig.linearVelocityY);
 
@@ -230,11 +261,11 @@ public class Player : MonoBehaviour
     }
 
     void shoot()
-{
-    if (Input.GetButtonDown("Fire1"))
     {
-            if (munition > 0 && !isBurned )
+        if (Input.GetButtonDown("Fire1"))
         {
+            if (munition > 0 && !isBurned)
+            {
 
                 GameObject temp = Instantiate(bullet);
                 anim.SetTrigger("fire");
@@ -257,16 +288,16 @@ public class Player : MonoBehaviour
                 {
                     temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(2 * shotForce * direction, 0f);
                 }
-            
-            munition = 0;
-            Destroy(temp.gameObject, 3f);
+
+                munition = 0;
+                Destroy(temp.gameObject, 3f);
 
             }
         }
-}
+    }
     void Burned()
     {
-        if(munition == 4)
+        if (munition == 4)
         {
             isBurned = true;
         }
@@ -297,7 +328,7 @@ public class Player : MonoBehaviour
             anim.SetBool("jump", false);
             //speed = defaultSpeed;
         }
-        
+
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -311,7 +342,7 @@ public class Player : MonoBehaviour
     void CreateDust()
     {
         dust.Play();
-        
+
     }
 
     void DisableDust()
@@ -321,10 +352,10 @@ public class Player : MonoBehaviour
 
     void overCharge()
     {
-        if(munition == 3 && !fire.isPlaying)
+        if (munition == 3 && !fire.isPlaying)
         {
             fire.Play();
         }
     }
-    
+
 }

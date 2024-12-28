@@ -40,7 +40,7 @@ public class Pepper : MonoBehaviour
     void AdicionarMunicaoPlayer1()
     {
 
-        Player.Instance.munition++;
+        PlayerNet.Instance.munition++;
 
         sr.enabled = false;
         box.enabled = false;

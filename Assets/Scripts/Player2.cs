@@ -1,11 +1,9 @@
 using Unity.Mathematics;
-using UnityEditor.Rendering;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class Player2 : MonoBehaviour
 {
@@ -73,7 +71,7 @@ public class Player2 : MonoBehaviour
         burn();
         gravityJump();
         Burned();
-        HealthLogic();
+        //HealthLogic();
         overCharge();
 
     }

@@ -10,7 +10,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); 
+            gameObject.SetActive(false);
             return;
         }
 

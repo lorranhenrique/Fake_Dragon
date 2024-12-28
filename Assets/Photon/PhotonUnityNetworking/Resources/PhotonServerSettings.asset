@@ -38,6 +38,9 @@ MonoBehaviour:
   - DestroyRpc
   - AtualizaLista
   - ComecaJogo
+  - AdicionaJogador
+  - Inicialize
+  - CriaJogadorRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
