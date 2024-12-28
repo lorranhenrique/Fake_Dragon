@@ -5329,7 +5329,7 @@ MonoBehaviour:
   life: 3
   maxLife: 3
   coracao: []
-  blow: {fileID: 0}
+  blow: {fileID: 5323587144636095952}
   sr: {fileID: 0}
   box: {fileID: 0}
   circle: {fileID: 0}
@@ -5645,6 +5645,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37388b00e4d6fc345b1c0121e725702a, type: 3}
+--- !u!1 &5323587144636095952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6535305165393778076, guid: 37388b00e4d6fc345b1c0121e725702a, type: 3}
+  m_PrefabInstance: {fileID: 1392526122042558540}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5438411143387941732 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6352926781861167912, guid: 37388b00e4d6fc345b1c0121e725702a, type: 3}

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private string localizacaoPrefab;
     [SerializeField] private Transform[] spawns;
-    private bool[] spawnsOcupados; // Controle de spawns ocupados
+    private bool[] spawnsOcupados;
     private List<PlayerNet> jogadores;
     public List<PlayerNet> Jogadores { get => jogadores; private set => jogadores = value; }
 
@@ -25,14 +25,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Inicializar a lista de jogadores e controle de spawns
         jogadores = new List<PlayerNet>();
         spawnsOcupados = new bool[spawns.Length];
     }
 
     private void Start()
     {
-        photonView.RPC("AdicionaJogador", RpcTarget.All);
+        photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
@@ -42,7 +41,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient && jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
         {
-            // Apenas o cliente mestre gerencia a criação global
             photonView.RPC("CriaJogadorRPC", RpcTarget.All);
         }
     }
@@ -65,26 +63,22 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            // Primeiro jogador: spawn aleatório
             spawnIndex = Random.Range(0, spawns.Length);
         }
         else
         {
-            // Segundo jogador: ocupa o spawn vazio
             spawnIndex = System.Array.FindIndex(spawnsOcupados, ocupado => !ocupado);
         }
 
-        // Marca o spawn como ocupado
         spawnsOcupados[spawnIndex] = true;
 
-        // Instancia o jogador no spawn selecionado
         var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[spawnIndex].position, Quaternion.identity);
         var jogador = jogadorOBJ.GetComponent<PlayerNet>();
 
         if (jogador != null)
         {
             jogador.photonView.RPC("Inicialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-            jogadores.Add(jogador); // Adiciona o jogador à lista
+            jogadores.Add(jogador);
         }
     }
 }
