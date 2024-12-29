@@ -25,13 +25,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        jogadores = new List<PlayerNet>();
         spawnsOcupados = new bool[spawns.Length];
     }
 
     private void Start()
     {
         photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
+        jogadores = new List<PlayerNet>();
     }
 
     [PunRPC]
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         jogadoresEmJogo++;
 
-        if (PhotonNetwork.IsMasterClient && jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
+        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
         {
             photonView.RPC("CriaJogadorRPC", RpcTarget.All);
         }
@@ -75,10 +75,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[spawnIndex].position, Quaternion.identity);
         var jogador = jogadorOBJ.GetComponent<PlayerNet>();
 
-        if (jogador != null)
-        {
-            jogador.photonView.RPC("Inicialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
-            jogadores.Add(jogador);
-        }
+       
+        jogador.photonView.RPC("Inicialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
+          
     }
 }
