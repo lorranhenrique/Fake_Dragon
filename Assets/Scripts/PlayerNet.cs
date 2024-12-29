@@ -65,8 +65,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (!photonView.IsMine)
-            return;
 
         // Apenas o jogador local controla movimento, salto e lógica
         float x = Input.GetAxis("Horizontal");
