@@ -46,6 +46,6 @@ public class Menu : MonoBehaviourPunCallbacks
     public void ComecaJogo(string nomeCena)
     {
         GestorDeRede.Instance.photonView.RPC("ComecaJogo", RpcTarget.All, nomeCena);
-        mudaMenu(menuEntrada.gameObject);
+        //mudaMenu(menuEntrada.gameObject);
     }
 }
