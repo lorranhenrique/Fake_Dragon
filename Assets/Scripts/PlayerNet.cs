@@ -66,7 +66,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void Update()
     {
 
-        // Apenas o jogador local controla movimento, salto e lógica
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -91,23 +90,11 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         photonPlayer = player;
         id = player.ActorNumber;
 
-        if (GameManager.Instance == null || GameManager.Instance.Jogadores == null)
-        {
-            Debug.LogError("GameManager ou lista de jogadores não inicializados.");
-            return;
-        }
-
-        if (GameManager.Instance.Jogadores.Exists(j => j.photonView.Owner == photonView.Owner))
-        {
-            Debug.LogWarning("Jogador já está na lista.");
-            return;
-        }
-
         GameManager.Instance.Jogadores.Add(this);
 
         if (!photonView.IsMine)
         {
-            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         }
     }
 
