@@ -87,14 +87,27 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public void Inicialize(Player player)
     {
+        if (player == null)
+        {
+            Debug.LogError("Player está nulo no método Inicialize.");
+            return;
+        }
+
         photonPlayer = player;
         id = player.ActorNumber;
+
+        if (GameManager.Instance == null || GameManager.Instance.Jogadores == null)
+        {
+            Debug.LogError("GameManager.Instance ou GameManager.Instance.Jogadores está nulo.");
+            return;
+        }
+
 
         GameManager.Instance.Jogadores.Add(this);
 
         if (!photonView.IsMine)
         {
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-    public static GameManager Instance { get; private set; }
+    public static GameManager Instance;
 
     private int jogadoresEmJogo = 0;
 
@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private Transform[] spawns;
     private bool[] spawnsOcupados;
     private List<PlayerNet> jogadores;
-    public List<PlayerNet> Jogadores { get => jogadores; private set => jogadores = value; }
+    public List<PlayerNet> Jogadores { get => jogadores; set => jogadores = value; }
 
     private void Awake()
     {
@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
 
         spawnsOcupados = new bool[spawns.Length];
-    }
+        Jogadores = new List<PlayerNet>();
+}
 
     private void Start()
     {
