@@ -37,11 +37,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AdicionaJogador()
     {
-        jogadoresEmJogo++;
+        
 
-        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
+        if (!(jogadoresEmJogo == PhotonNetwork.PlayerList.Length))
         {
             photonView.RPC("CriaJogadorRPC", RpcTarget.All);
+            jogadoresEmJogo++;
         }
     }
 
