@@ -41,6 +41,7 @@ MonoBehaviour:
   - AdicionaJogador
   - Inicialize
   - CriaJogadorRPC
+  - CriaJogador
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

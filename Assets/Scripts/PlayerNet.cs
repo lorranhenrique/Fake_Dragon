@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Realtime;
+using System.Collections.Generic;
 
 public class PlayerNet : MonoBehaviourPunCallbacks
 {
@@ -65,6 +66,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
 
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
@@ -87,22 +92,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public void Inicialize(Player player)
     {
-        if (player == null)
-        {
-            Debug.LogError("Player está nulo no método Inicialize.");
-            return;
-        }
-
         photonPlayer = player;
         id = player.ActorNumber;
-
-        if (GameManager.Instance == null || GameManager.Instance.Jogadores == null)
-        {
-            Debug.LogError("GameManager.Instance ou GameManager.Instance.Jogadores está nulo.");
-            return;
-        }
-
-
         GameManager.Instance.Jogadores.Add(this);
 
         if (!photonView.IsMine)

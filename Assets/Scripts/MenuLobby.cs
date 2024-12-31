@@ -14,4 +14,11 @@ public class MenuLobby : MonoBehaviourPunCallbacks
         listaDeJogadores.text = GestorDeRede.Instance.ObterListaDeJogadores();
         comecaJogo.interactable = GestorDeRede.Instance.DonoDaSala();
     }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        AtualizaLista();
+    }
+
+
 }

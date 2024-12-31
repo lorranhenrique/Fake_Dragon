@@ -21,7 +21,7 @@ public class Menu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         mudaMenu(menuLobby.gameObject);
-        menuLobby.photonView.RPC("AtualizaLista", RpcTarget.All);
+        menuLobby.photonView.RPC("AtualizaLista", RpcTarget.AllBuffered);
     }
 
     public void mudaMenu(GameObject menu)
