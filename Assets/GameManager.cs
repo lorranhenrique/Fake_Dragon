@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        //Jogadores = new List<PlayerNet>();
         spawnsOcupados = new bool[spawns.Length];
         if (Instance == null)
         {
@@ -54,40 +53,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-private void CriaJogador()
-{
-    if (!PhotonNetwork.IsMasterClient) return;
-
-    for (int i = 0; i < spawns.Length; i++)
+    private void CriaJogador()
     {
-        if (!spawnsOcupados[i])
+        int jogadorIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1; 
+
+        if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
         {
-            spawnsOcupados[i] = true;
-            photonView.RPC("SpawnJogador", RpcTarget.AllBuffered, i);
-            return;
-        }
-    }
+            if (!spawnsOcupados[jogadorIndex])
+            {
+                spawnsOcupados[jogadorIndex] = true;
 
-    Debug.LogWarning("Todos os pontos de spawn estão ocupados!");
-}
+                var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
+                var jogador = jogadorOBJ.GetComponent<PlayerNet>();
+                jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
 
-
-
-    [PunRPC]
-    private void SpawnJogador(int spawnIndex)
-    {
-        if (spawnIndex >= 0 && spawnIndex < spawns.Length)
-        {
-            var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[spawnIndex].position, Quaternion.identity);
-
-            var jogador = jogadorOBJ.GetComponent<PlayerNet>();
-            jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
+                Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
+            }
+            else
+            {
+                Debug.LogWarning($"O spawn {jogadorIndex} já está ocupado!");
+            }
         }
         else
         {
-            Debug.LogError("Índice de spawn inválido recebido: " + spawnIndex);
+            Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
         }
     }
-
-
 }
