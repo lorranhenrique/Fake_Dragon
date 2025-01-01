@@ -92,15 +92,30 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public void Inicialize(Player player)
     {
+        if (player == null)
+        {
+            Debug.LogError("Player passado para Inicialize é nulo!");
+            return;
+        }
+
         photonPlayer = player;
         id = player.ActorNumber;
-        GameManager.Instance.Jogadores.Add(this);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.Jogadores.Add(this);
+        }
+        else
+        {
+            Debug.LogError("GameManager.Instance é nulo ao inicializar jogador.");
+        }
 
         if (!photonView.IsMine)
         {
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
     }
+
 
     void HealthLogic()
     {
@@ -132,8 +147,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void restart()
     {
-        SceneManager.LoadScene("Scene 1");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("Scene 1");
+        }
     }
+
 
     void applyJumpExtraGravity()
     {

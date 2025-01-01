@@ -21,12 +21,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Mantém o GameManager ao trocar de cena
-             // Inicializa a lista
+            DontDestroyOnLoad(gameObject);
+            spawnsOcupados = new bool[spawns.Length];
         }
         else
         {
-            Destroy(gameObject); // Garante que exista apenas um GameManager
+            Destroy(gameObject);
         }
     }
 
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Start()
     {
         
-        photonView.RPC("AdicionaJogador", RpcTarget.All);
+        photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
         jogadores = new List<PlayerNet>();
 
     }
@@ -44,24 +44,50 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         jogadoresEmJogo++;
 
-        if (jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
+        if (PhotonNetwork.IsMasterClient && jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
         {
-            photonView.RPC("CriaJogador", RpcTarget.All);
-            
+            photonView.RPC("CriaJogador", RpcTarget.AllBuffered);
+            Debug.Log("CHAMOU O CRIA JOGADOR: "+jogadoresEmJogo);
+
         }
+        Debug.Log(jogadoresEmJogo);
     }
 
     [PunRPC]
+private void CriaJogador()
+{
+    if (!PhotonNetwork.IsMasterClient) return;
 
-    private void CriaJogador()
+    for (int i = 0; i < spawns.Length; i++)
     {
-        int spawnIndex = System.Array.FindIndex(spawnsOcupados, ocupado => !ocupado);
-        spawnsOcupados[spawnIndex] = true;
-
-        var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[spawnIndex].position, Quaternion.identity);
-        var jogador = jogadorOBJ.GetComponent<PlayerNet>();
-
-        jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
+        if (!spawnsOcupados[i])
+        {
+            spawnsOcupados[i] = true;
+            photonView.RPC("SpawnJogador", RpcTarget.AllBuffered, i);
+            return;
+        }
     }
+
+    Debug.LogWarning("Todos os pontos de spawn estão ocupados!");
+}
+
+
+
+    [PunRPC]
+    private void SpawnJogador(int spawnIndex)
+    {
+        if (spawnIndex >= 0 && spawnIndex < spawns.Length)
+        {
+            var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[spawnIndex].position, Quaternion.identity);
+
+            var jogador = jogadorOBJ.GetComponent<PlayerNet>();
+            jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
+        }
+        else
+        {
+            Debug.LogError("Índice de spawn inválido recebido: " + spawnIndex);
+        }
+    }
+
 
 }
