@@ -356,6 +356,15 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Pepper")
+        {
+            this.munition++;
+        }
+
+    }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.layer == 8)

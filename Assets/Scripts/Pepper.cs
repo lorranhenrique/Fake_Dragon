@@ -16,7 +16,6 @@ public class Pepper : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -27,39 +26,13 @@ public class Pepper : MonoBehaviour
         if(collider.gameObject.tag == "Player" && !coletada)
         {
             coletada = true;
-            AdicionarMunicaoPlayer1();
+            sr.enabled = false;
+            box.enabled = false;
+            collected.SetActive(true);
+
+            Destroy(gameObject, 0.6f);
         }
-        if (collider.gameObject.tag == "Player2" && !coletada)
-        {
-            coletada = true;
-            AdicionarMunicaoPlayer2();
-        }
 
-    }
-
-    void AdicionarMunicaoPlayer1()
-    {
-
-        PlayerNet.Instance.munition++;
-
-        sr.enabled = false;
-        box.enabled = false;
-        collected.SetActive(true);
-
-        Destroy(gameObject, 0.6f);
-    }
-
-
-    void AdicionarMunicaoPlayer2()
-    {
-
-        Player2.Instance.munition++;
-
-        sr.enabled = false;
-        box.enabled = false;
-        collected.SetActive(true);
-
-        Destroy(gameObject, 0.6f);
     }
 
     public event Action OnDestroyed;
