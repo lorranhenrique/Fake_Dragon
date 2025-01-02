@@ -237,6 +237,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         inDash = false;
     }
 
+    [PunRPC]
+    void SyncDirection(Vector3 direction)
+    {
+        transform.eulerAngles = direction;
+    }
+
     void Move(Vector2 dir)
     {
         rig.linearVelocity = new Vector2(dir.x * speed, rig.linearVelocityY);
@@ -252,12 +258,14 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            photonView.RPC("SyncDirection", RpcTarget.Others, transform.eulerAngles);
 
         }
         else if (dir.x < 0)
         {
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            photonView.RPC("SyncDirection", RpcTarget.Others, transform.eulerAngles);
 
         }
         else
