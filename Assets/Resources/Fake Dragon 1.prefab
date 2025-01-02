@@ -5334,6 +5334,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   box: {fileID: 0}
   circle: {fileID: 0}
+  munitionText: {fileID: 8934292751060619084}
 --- !u!58 &807955332419047436
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5451,7 +5452,6 @@ GameObject:
   - component: {fileID: 1071462942082178788}
   - component: {fileID: 7526095750263769304}
   - component: {fileID: 5109024738764941928}
-  - component: {fileID: 2760471542358682724}
   m_Layer: 5
   m_Name: Munition
   m_TagString: Untagged
@@ -5577,19 +5577,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &2760471542358682724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8934292751060619084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51d210a22d223a549a11a0241952bd43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textMeshPro: {fileID: 0}
 --- !u!1001 &1392526122042558540
 PrefabInstance:
   m_ObjectHideFlags: 0

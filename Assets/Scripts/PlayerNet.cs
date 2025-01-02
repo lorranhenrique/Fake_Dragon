@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Realtime;
 using System.Collections.Generic;
+using TMPro;
 
 public class PlayerNet : MonoBehaviourPunCallbacks
 {
@@ -53,6 +54,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     private Player photonPlayer;
     private int id;
 
+    public GameObject munitionText;
+
     void Start()
     {
         defaultSpeed = speed;
@@ -85,6 +88,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         Burned();
         //HealthLogic();
         overCharge();
+        AtualizaMunicao();
 
     }
 
@@ -116,6 +120,18 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+
+    public void AtualizaMunicao()
+    {
+        if (munitionText != null)
+        {
+            TMP_Text textMeshPro = munitionText.GetComponent<TMP_Text>();
+            if (textMeshPro != null)
+            {
+                textMeshPro.text = munition.ToString();
+            }
+        }
+    }
 
     void HealthLogic()
     {
