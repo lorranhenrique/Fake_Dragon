@@ -64,8 +64,10 @@ public class Bullet : MonoBehaviour
         {
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
+            transform.localScale = new Vector3(0.14f, 0.14f, 0.189f);
             acelerator = 0f;
             smoke.Stop();
+            
 
            
             circle.enabled = false;
