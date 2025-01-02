@@ -93,6 +93,13 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    void UpdateAnimationState(string animationState, bool value)
+    {
+        anim.SetBool(animationState, value);
+    }
+
+
+    [PunRPC]
 
     public void Inicialize(Player player)
     {
@@ -196,7 +203,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (Input.GetButtonDown("Fire2") && inDash == false)
         {
-
+     
             defaultSpeed = speed;
             speed = dashSpeed;
 
@@ -204,10 +211,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             {
                 isJumping = false;
                 anim.SetBool("jump", false);
+                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "jump", anim.GetBool("jump"));
             }
             if (Input.GetAxis("Horizontal") != 0)
             {
                 anim.SetTrigger("dash");
+                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "dash", anim.GetBool("dash"));
             }
 
             inDash = true;
@@ -230,10 +239,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Move(Vector2 dir)
     {
-
-
-
         rig.linearVelocity = new Vector2(dir.x * speed, rig.linearVelocityY);
+
+        photonView.RPC("UpdateAnimationState", RpcTarget.Others, "walk", anim.GetBool("walk"));
 
         if (Input.GetButtonDown("Horizontal"))
         {
@@ -262,12 +270,14 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (Input.GetButtonDown("Jump"))
         {
+            
             if (!isJumping)
             {
                 rig.linearVelocity = new Vector2(rig.linearVelocityX, 0);
                 rig.linearVelocity += Vector2.up * jumpForce;
                 doubleJumping = true;
                 anim.SetBool("jump", true);
+                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "jump", anim.GetBool("jump"));
                 CreateDust();
                 if (rig.linearVelocity.y < 0)
                 {
@@ -288,8 +298,29 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    public void SetMunition(int newMunition)
+    {
+        
+            munition = newMunition;
+            AtualizaMunicaoNet();
+        
+    }
+
+    public void AtualizaMunicaoNet()
+    {
+        if (munitionText != null)
+        {
+            TMP_Text textMeshPro = munitionText.GetComponent<TMP_Text>();
+            if (textMeshPro != null)
+            {
+                textMeshPro.text = munition.ToString();
+            }
+        }
+    }
     void shoot()
     {
+        
         if (Input.GetButtonDown("Fire1"))
         {
             if (munition > 0 && !isBurned)
@@ -297,6 +328,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
                 GameObject temp = Instantiate(bullet);
                 anim.SetTrigger("fire");
+                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "fire", anim.GetBool("fire"));
                 temp.transform.position = gun.position;
                 direction = (transform.eulerAngles.y == 180) ? 1 : -1;
                 temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
@@ -318,6 +350,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                 }
 
                 munition = 0;
+                photonView.RPC("SetMunition", RpcTarget.All, munition);
+                
                 Destroy(temp.gameObject, 3f);
 
             }
@@ -336,7 +370,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (isBurned)
         {
             munition = 2;
+            photonView.RPC("SetMunition", RpcTarget.All, munition);
             anim.SetTrigger("burn");
+            photonView.RPC("UpdateAnimationState", RpcTarget.Others, "burn", anim.GetBool("burn"));
             Invoke("burnDelay", burnCooldown);
         }
     }
@@ -363,6 +399,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (anim != null)
             {
                 anim.SetBool("jump", false);
+                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "jump", anim.GetBool("jump"));
             }
             else
             {
@@ -374,9 +411,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!photonView.IsMine) return;
+
         if (collision.gameObject.tag == "Pepper")
         {
             this.munition++;
+            photonView.RPC("SetMunition", RpcTarget.All, munition);
         }
 
     }

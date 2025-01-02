@@ -43,6 +43,9 @@ MonoBehaviour:
   - CriaJogadorRPC
   - CriaJogador
   - SpawnJogador
+  - Update
+  - UpdateAnimationState
+  - SetMunition
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
