@@ -50,11 +50,11 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public static PlayerNet Instance;
 
-    private PlayerNet jogador = null;
     private Player photonPlayer;
     private int id;
 
     public GameObject munitionText;
+    public GameObject playerTag;
 
     public int playerNum;
 
@@ -103,7 +103,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     [PunRPC]
     void UpdateFire(bool isplaying)
     {
-
         if (isplaying)
         {
             fire.Play();
@@ -128,17 +127,35 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
-
-
     [PunRPC]
 
+    void UpdateColorTag(string newColor)
+    {
+        TMP_Text textTag = playerTag.GetComponent<TMP_Text>();
+        if (ColorUtility.TryParseHtmlString("#FF0074", out Color Color) && playerNum == 2)
+        {
+            textTag.color = Color;
+        }
+    }
+
+    [PunRPC]
     public void Inicialize(Player player)
     {
         playerNum = player.ActorNumber;
 
-        if(playerNum == 2)
+        if (playerTag != null)
+        {
+            TMP_Text textTag = playerTag.GetComponent<TMP_Text>();
+            if (textTag != null)
+            {
+                textTag.text = $"P{playerNum}";
+            }
+        }
+
+        if (playerNum == 2)
         {
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            photonView.RPC("UpdateColorTag", RpcTarget.AllBuffered, "#FF0074");
             photonView.RPC("SyncDirection", RpcTarget.All, transform.eulerAngles);
         }
 
@@ -166,7 +183,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
     }
-
 
     public void AtualizaMunicao()
     {
@@ -313,7 +329,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             anim.SetBool("walk", false);
         }
     }
-
+   
     void jump()
     {
         if (Input.GetButtonDown("Jump"))
@@ -356,6 +372,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             AtualizaMunicaoNet();
         
     }
+    
     public void AtualizaMunicaoNet()
     {
         if (munitionText != null)
@@ -367,6 +384,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             }
         }
     }
+    
     void shoot()
     {
         
@@ -406,6 +424,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             }
         }
     }
+    
     void Burned()
     {
         if (munition >= 4)
@@ -431,7 +450,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         isBurned = false;
         anim.ResetTrigger("burn");
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
