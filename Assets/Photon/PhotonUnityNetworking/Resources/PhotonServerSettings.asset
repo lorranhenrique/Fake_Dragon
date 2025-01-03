@@ -47,6 +47,8 @@ MonoBehaviour:
   - UpdateAnimationState
   - SetMunition
   - SyncDirection
+  - UpdateDust
+  - UpdateFire
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -98,6 +98,35 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         anim.SetBool(animationState, value);
     }
 
+    [PunRPC]
+    void UpdateFire(bool isplaying)
+    {
+
+        if (isplaying)
+        {
+            fire.Play();
+        }
+        else
+        {
+            fire.Stop();
+        }
+    }
+
+    [PunRPC]
+    void UpdateDust(bool isplaying)
+    {
+
+        if (isplaying)
+        {
+            dust.Play();
+        }
+        else
+        {
+            dust.Stop();
+        }
+    }
+
+
 
     [PunRPC]
 
@@ -176,7 +205,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
-
     void applyJumpExtraGravity()
     {
         Vector2 velocity = this.rig.linearVelocity;
@@ -252,6 +280,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (Input.GetButtonDown("Horizontal"))
         {
             CreateDust();
+            photonView.RPC("UpdateDust", RpcTarget.All, true);
         }
 
         if (dir.x > 0)
@@ -287,6 +316,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                 anim.SetBool("jump", true);
                 photonView.RPC("UpdateAnimationState", RpcTarget.Others, "jump", anim.GetBool("jump"));
                 CreateDust();
+                photonView.RPC("UpdateDust", RpcTarget.All, true);
                 if (rig.linearVelocity.y < 0)
                 {
                     jumpForce -= rig.linearVelocity.y;
@@ -300,6 +330,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                     rig.linearVelocity += Vector2.up * jumpForce;
                     doubleJumping = false;
                     CreateDust();
+                    photonView.RPC("UpdateDust", RpcTarget.All, true);
 
                 }
             }
@@ -314,7 +345,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             AtualizaMunicaoNet();
         
     }
-
     public void AtualizaMunicaoNet()
     {
         if (munitionText != null)
@@ -367,7 +397,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
     void Burned()
     {
-        if (munition == 4)
+        if (munition >= 4)
         {
             isBurned = true;
         }
@@ -440,12 +470,13 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void CreateDust()
     {
         dust.Play();
-
+        photonView.RPC("UpdateDust", RpcTarget.All, true);
     }
 
     void DisableDust()
     {
         dust.Stop();
+        photonView.RPC("UpdateDust", RpcTarget.All, false);
     }
 
     void overCharge()
@@ -453,6 +484,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (munition == 3 && !fire.isPlaying)
         {
             fire.Play();
+            photonView.RPC("UpdateFire", RpcTarget.All, true);
         }
     }
 

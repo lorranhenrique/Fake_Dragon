@@ -5323,7 +5323,7 @@ MonoBehaviour:
   bullet: {fileID: 846830654960347641, guid: 9581ea64300017542a75ee1fee7322a7, type: 3}
   direction: 0
   gun: {fileID: 3841837983927756003}
-  shotForce: 10
+  shotForce: 20
   megaShotForce: 60
   isBurned: 0
   burnCooldown: 3.5
