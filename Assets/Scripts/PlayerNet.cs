@@ -56,6 +56,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public GameObject munitionText;
 
+    public int playerNum;
+
     void Start()
     {
         defaultSpeed = speed;
@@ -132,6 +134,15 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     public void Inicialize(Player player)
     {
+        playerNum = player.ActorNumber;
+
+        if(playerNum == 2)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            photonView.RPC("SyncDirection", RpcTarget.All, transform.eulerAngles);
+        }
+
+        
         if (player == null)
         {
             Debug.LogError("Player passado para Inicialize é nulo!");

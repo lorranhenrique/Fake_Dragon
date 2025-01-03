@@ -28,8 +28,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             Destroy(gameObject);
         }
     }
-
-    
     private void Start()
     {
         
@@ -65,6 +63,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
                 var jogador = jogadorOBJ.GetComponent<PlayerNet>();
+
                 jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
 
                 Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");

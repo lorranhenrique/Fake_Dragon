@@ -5335,6 +5335,7 @@ MonoBehaviour:
   box: {fileID: 0}
   circle: {fileID: 0}
   munitionText: {fileID: 8934292751060619084}
+  playerNum: 0
 --- !u!58 &807955332419047436
 CircleCollider2D:
   m_ObjectHideFlags: 0
