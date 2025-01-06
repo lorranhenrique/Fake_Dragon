@@ -51,6 +51,9 @@ MonoBehaviour:
   - UpdateFire
   - ConfigurarPlayer
   - UpdateColorTag
+  - shoot
+  - UpdateShoot
+  - OnTriggerEnter2D
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

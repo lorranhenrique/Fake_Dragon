@@ -1,3 +1,4 @@
+using Photon.Realtime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -46,16 +47,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        if(shooter == 1)
-        {
-            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * PlayerNet.Instance.direction, 0f);
-        }
-        if(shooter == 2)
-        {
-            rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * Player2.Instance.direction, 0f);
-        }
-        
-
+       rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * PlayerNet.Instance.direction, 0f);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -68,54 +60,29 @@ public class Bullet : MonoBehaviour
             acelerator = 0f;
             smoke.Stop();
             
-
-           
             circle.enabled = false;
             sr.enabled = false;
 
-            
             blow.SetActive(true);
 
-            
             Destroy(gameObject, 0.5f);
         }
-        if (collider.gameObject.layer == 12 && shooter == 1)
-        {
-            Player2.Instance.life -= damage;
 
+        PlayerNet player = collider.GetComponent<PlayerNet>();
+
+        if (player != null && player.playerNum != shooter)
+        {
+            player.life -= damage;
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
             acelerator = 0f;
             smoke.Stop();
-
-
             circle.enabled = false;
             sr.enabled = false;
-
-
+            transform.localScale = new Vector3(0.14f, 0.14f, 0.189f);
             blow.SetActive(true);
-
-
             Destroy(gameObject, 0.5f);
         }
-        if (collider.gameObject.layer == 9 && shooter == 2)
-        {
-            PlayerNet.Instance.life -= damage;
-
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-            acelerator = 0f;
-            smoke.Stop();
-
-
-            circle.enabled = false;
-            sr.enabled = false;
-
-
-            blow.SetActive(true);
-
-
-            Destroy(gameObject, 0.5f);
-        }
+        
     }
 }
