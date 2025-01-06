@@ -199,19 +199,11 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     [PunRPC]
     void HealthLogic()
     {
-        photonView.RPC("UpdateLife",RpcTarget.Others);
+        photonView.RPC("UpdateLife",RpcTarget.All);
 
         if (life <= 0)
         {
-            sr.enabled = false;
-            blow.SetActive(true);
-
-            gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
-            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-
-            Invoke("restart", 0.6f);
+            photonView.RPC("UpdateDeath", RpcTarget.All);
         }
     }
 
@@ -230,6 +222,20 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
             }
         }
+    }
+
+    [PunRPC]
+    void UpdateDeath()
+    {
+        sr.enabled = false;
+        blow.SetActive(true);
+
+        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        Invoke("restart", 0.6f);
     }
 
     void restart()
