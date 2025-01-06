@@ -240,9 +240,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void restart()
     {
-        
             PhotonNetwork.LoadLevel("Scene 1");
-        
     }
 
     void applyJumpExtraGravity()
@@ -502,6 +500,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             this.munition++;
             photonView.RPC("SetMunition", RpcTarget.All, munition);
+        }
+
+        if(collision.gameObject.tag == "bullet")
+        {
+            anim.SetTrigger("damage");
+            photonView.RPC("UpdateAnimationState", RpcTarget.Others, "damage", anim.GetBool("damage"));
         }
 
     }
