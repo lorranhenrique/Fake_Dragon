@@ -199,9 +199,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     [PunRPC]
     void HealthLogic()
     {
-        photonView.RPC("UpdateLife",RpcTarget.All);
+        photonView.RPC("UpdateLife",RpcTarget.Others);
 
-        if (life == 0)
+        if (life <= 0)
         {
             sr.enabled = false;
             blow.SetActive(true);
