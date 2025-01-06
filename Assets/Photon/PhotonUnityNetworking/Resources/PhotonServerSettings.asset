@@ -54,6 +54,8 @@ MonoBehaviour:
   - shoot
   - UpdateShoot
   - OnTriggerEnter2D
+  - HealthLogic
+  - UpdateLife
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

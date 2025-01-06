@@ -88,7 +88,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         burn();
         gravityJump();
         Burned();
-        //HealthLogic();
+        HealthLogic();
         overCharge();
         AtualizaMunicao();
 
@@ -196,19 +196,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
     void HealthLogic()
     {
-        for (int i = 0; i < coracao.Length; i++)
-        {
-            if (i < life)
-            {
-                coracao[i].enabled = true;
-            }
-            else
-            {
-                coracao[i].enabled = false;
-            }
-        }
+        photonView.RPC("UpdateLife",RpcTarget.All);
 
         if (life == 0)
         {
@@ -224,12 +215,28 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
+    void UpdateLife()
+    {
+        for (int i = 0; i < coracao.Length; i++)
+        {
+            if (i < life)
+            {
+                coracao[i].enabled = true;
+            }
+            else
+            {
+                coracao[i].enabled = false;
+
+            }
+        }
+    }
+
     void restart()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
+        
             PhotonNetwork.LoadLevel("Scene 1");
-        }
+        
     }
 
     void applyJumpExtraGravity()
