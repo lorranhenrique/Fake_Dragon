@@ -101,6 +101,20 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    void UpdateAnimationTrigger(string triggerName)
+    {
+        if (anim != null)
+        {
+            anim.SetTrigger(triggerName);
+            Debug.Log($"Trigger {triggerName} ativado.");
+        }
+        else
+        {
+            Debug.LogError("Animator não foi inicializado antes de SetTrigger.");
+        }
+    }
+    
+    [PunRPC]
     void UpdateFire(bool isplaying)
     {
         if (isplaying)
@@ -240,7 +254,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void restart()
     {
-            PhotonNetwork.LoadLevel("Scene 1");
+     PhotonNetwork.LoadLevel("Scene 1");
     }
 
     void applyJumpExtraGravity()
@@ -282,7 +296,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (Input.GetAxis("Horizontal") != 0)
             {
                 anim.SetTrigger("dash");
-                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "dash", anim.GetBool("dash"));
+                photonView.RPC("UpdateAnimationTrigger", RpcTarget.Others, "dash");
             }
 
             inDash = true;
@@ -409,7 +423,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                 munition = 0;
                 photonView.RPC("SetMunition", RpcTarget.All, munition);
                 anim.SetTrigger("fire");
-                photonView.RPC("UpdateAnimationState", RpcTarget.Others, "fire", anim.GetBool("fire"));
+                photonView.RPC("UpdateAnimationTrigger", RpcTarget.Others, "fire");
             }
         }
     }
@@ -456,7 +470,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             munition = 2;
             photonView.RPC("SetMunition", RpcTarget.All, munition);
             anim.SetTrigger("burn");
-            photonView.RPC("UpdateAnimationState", RpcTarget.Others, "burn", anim.GetBool("burn"));
+            photonView.RPC("UpdateAnimationTrigger", RpcTarget.Others, "burn");
             Invoke("burnDelay", burnCooldown);
         }
     }
@@ -502,10 +516,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             photonView.RPC("SetMunition", RpcTarget.All, munition);
         }
 
-        if(collision.gameObject.tag == "bullet")
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+        if(bullet != null && bullet.shooter != this.playerNum)
         {
             anim.SetTrigger("damage");
-            photonView.RPC("UpdateAnimationState", RpcTarget.Others, "damage", anim.GetBool("damage"));
+            photonView.RPC("UpdateAnimationTrigger", RpcTarget.Others, "damage");
         }
 
     }
