@@ -5,17 +5,24 @@ public class Menu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private MenuEntrada menuEntrada;
     [SerializeField] private MenuLobby menuLobby;
+    [SerializeField] private TelaDeCarregamento telaDeCarregamento;
 
     private void Start()
     {
         menuEntrada.gameObject.SetActive(false);
         menuLobby.gameObject.SetActive(false);
+        telaDeCarregamento.gameObject.SetActive(true);
     }
 
     public override void OnConnectedToMaster()
-    {
-        menuEntrada.gameObject.SetActive(true);
-        //menuLobby.gameObject.SetActive(true);
+    {   
+        if(menuLobby != null)
+        { 
+            telaDeCarregamento.gameObject.SetActive(false);
+            menuEntrada.gameObject.SetActive(true);
+            //menuLobby.gameObject.SetActive(true);
+        }
+
     }
 
     public override void OnJoinedRoom()
