@@ -14,12 +14,6 @@ public class Score : MonoBehaviourPunCallbacks
         restart.interactable = GestorDeRede.Instance.DonoDaSala();
     }
 
-    
-    void Update()
-    {
-        
-    }
-
     [PunRPC]
     public void ReturnMenu()
     {
