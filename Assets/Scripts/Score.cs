@@ -31,12 +31,13 @@ public class Score : MonoBehaviourPunCallbacks
     public void RestartJogo()
     {
         photonView.RPC("ReiniciaCena", RpcTarget.AllBuffered);
+        SceneManager.LoadScene("Scene 1");
     }
 
     [PunRPC]
     public void ReiniciaCena()
     {
-        SceneManager.LoadScene("Scene 1");
+        restart.interactable = true;
     }
 
 }
