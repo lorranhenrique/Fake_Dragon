@@ -14,19 +14,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     private List<PlayerNet> jogadores;
     public List<PlayerNet> Jogadores { get => jogadores; set => jogadores = value; }
 
+    [SerializeField] public GameObject placarVitoria;
+    [SerializeField] public GameObject placarDerrota;
+
     private void Awake()
     {
-        spawnsOcupados = new bool[spawns.Length];
+        
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            spawnsOcupados = new bool[spawns.Length];
         }
         else
         {
             Destroy(gameObject);
         }
+        spawnsOcupados = new bool[spawns.Length];
     }
     private void Start()
     {
@@ -78,4 +81,51 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
         }
     }
+
+    [PunRPC]
+    private void VerificaFimDeJogo()
+    {
+        int jogadoresVivos = 0;
+        foreach (var jogador in jogadores)
+        {
+            if (jogador.life > 0)
+            {
+                jogadoresVivos++;
+            }
+        }
+
+        if (jogadoresVivos == 1)
+        {
+            foreach (var jogador in jogadores)
+            {
+                if (jogador.life > 0)
+                {
+                    jogador.photonView.RPC("UpdateVitoria", RpcTarget.All);
+                }
+                else
+                {
+                    jogador.photonView.RPC("UpdateDerrota", RpcTarget.All);
+                }
+            }
+        }
+    }
+
+    [PunRPC]
+    public void UpdateVitoria()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.placarVitoria.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    public void UpdateDerrota()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.placarDerrota.SetActive(true);
+        }
+    }
+
 }

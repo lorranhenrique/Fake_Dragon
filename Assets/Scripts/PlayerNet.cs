@@ -57,6 +57,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     public GameObject playerTag;
 
     public int playerNum;
+    public bool jogoTerminado;
 
     void Start()
     {
@@ -71,7 +72,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (!photonView.IsMine)
+        if (!photonView.IsMine || jogoTerminado)
         {
             return;
         }
@@ -249,12 +250,34 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        Invoke("restart", 0.6f);
+        GameManager.Instance.photonView.RPC("VerificaFimDeJogo", RpcTarget.All);
+
+        photonView.RPC("updateGameState", RpcTarget.All);
+
+        Invoke("score", 0.6f);
     }
 
-    void restart()
+    [PunRPC]
+
+    void updateGameState()
     {
-     PhotonNetwork.LoadLevel("Scene 1");
+        jogoTerminado = true;
+    }
+
+    void score()
+    {
+        if (GameManager.Instance != null)
+        {
+            if (photonPlayer.IsLocal)
+            {
+                GameManager.Instance.placarDerrota.SetActive(true);
+            }
+            else
+            {
+                GameManager.Instance.placarVitoria.SetActive(true);
+            }
+        }
+        //PhotonNetwork.LoadLevel("Scene 1");
     }
 
     void applyJumpExtraGravity()

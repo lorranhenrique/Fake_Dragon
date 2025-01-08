@@ -5496,6 +5496,7 @@ MonoBehaviour:
   munitionText: {fileID: 8934292751060619084}
   playerTag: {fileID: 6847421310430029810}
   playerNum: 0
+  jogoTerminado: 0
 --- !u!58 &807955332419047436
 CircleCollider2D:
   m_ObjectHideFlags: 0

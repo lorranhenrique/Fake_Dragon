@@ -59,6 +59,11 @@ MonoBehaviour:
   - UpdateDeath
   - UpdateAnimationTrigger
   - EntrarNoJogo
+  - UpdateDerrota
+  - UpdateVitoria
+  - VerificaFimDeJogo
+  - updateGameState
+  - ReturnMenu
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
