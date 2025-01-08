@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-       rb.linearVelocity += new Vector2(acelerator * Time.deltaTime * PlayerNet.Instance.direction, 0f);
+       
     }
 
     void OnTriggerEnter2D(Collider2D collider)
