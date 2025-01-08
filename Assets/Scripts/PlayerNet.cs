@@ -239,6 +239,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+
     [PunRPC]
     void UpdateDeath()
     {

@@ -8,7 +8,7 @@ public class Score : MonoBehaviour
     [SerializeField] private Button exit;
     [SerializeField] private Button restart;
 
-    public string namo = "Scene 1";
+ 
     void Start()
     {
         
@@ -23,14 +23,14 @@ public class Score : MonoBehaviour
     [PunRPC]
     public void ReturnMenu()
     {
-        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("TelaInicial");
     }
 
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PhotonNetwork.LoadLevel("Scene 1");
     }
 
 }

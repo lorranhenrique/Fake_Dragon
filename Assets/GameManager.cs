@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         spawnsOcupados = new bool[spawns.Length];
     }
+    
     private void Start()
     {
         
@@ -38,6 +39,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         jogadores = new List<PlayerNet>();
 
     }
+
+    public void OnSceneLoaded(int sceneBuildIndex, string sceneName)
+    {
+        if (PhotonNetwork.PlayerList.Length == jogadoresEmJogo)
+        {
+            photonView.RPC("CriaJogador", RpcTarget.AllBuffered);
+        }
+       
+    }
+
 
     [PunRPC]
     private void AdicionaJogador()
@@ -96,15 +107,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (jogadoresVivos == 1)
         {
-            foreach (var jogador in jogadores)
+            foreach (var player in jogadores)
             {
-                if (jogador.life > 0)
+                if (player.life > 0)
                 {
-                    jogador.photonView.RPC("UpdateVitoria", RpcTarget.All);
+                    player.photonView.RPC("UpdateVitoria", RpcTarget.All);
                 }
                 else
                 {
-                    jogador.photonView.RPC("UpdateDerrota", RpcTarget.All);
+                    player.photonView.RPC("UpdateDerrota", RpcTarget.All);
                 }
             }
         }
