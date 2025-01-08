@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] public GameObject placarVitoria;
     [SerializeField] public GameObject placarDerrota;
+    [SerializeField] public GameObject Botoes;
 
     private void Awake()
     {
@@ -127,6 +128,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (GameManager.Instance != null)
         {
             GameManager.Instance.placarVitoria.SetActive(true);
+            GameManager.Instance.Botoes.SetActive(true);
         }
     }
 
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (GameManager.Instance != null)
         {
             GameManager.Instance.placarDerrota.SetActive(true);
+            GameManager.Instance.Botoes.SetActive(true);
         }
     }
 

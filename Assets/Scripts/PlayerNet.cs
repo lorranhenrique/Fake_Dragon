@@ -272,10 +272,12 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (photonPlayer.IsLocal)
             {
                 GameManager.Instance.placarDerrota.SetActive(true);
+                GameManager.Instance.Botoes.SetActive(true);
             }
             else
             {
                 GameManager.Instance.placarVitoria.SetActive(true);
+                GameManager.Instance.Botoes.SetActive(true);
             }
         }
         //PhotonNetwork.LoadLevel("Scene 1");

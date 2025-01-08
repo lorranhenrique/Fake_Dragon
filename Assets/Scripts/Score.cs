@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Score : MonoBehaviour
+public class Score : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Button exit;
     [SerializeField] private Button restart;
@@ -11,7 +11,7 @@ public class Score : MonoBehaviour
  
     void Start()
     {
-        
+        restart.interactable = GestorDeRede.Instance.DonoDaSala();
     }
 
     
@@ -28,9 +28,15 @@ public class Score : MonoBehaviour
     }
 
 
-    public void Restart()
+    public void RestartJogo()
     {
-        PhotonNetwork.LoadLevel("Scene 1");
+        photonView.RPC("ReiniciaCena", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    public void ReiniciaCena()
+    {
+        SceneManager.LoadScene("Scene 1");
     }
 
 }
