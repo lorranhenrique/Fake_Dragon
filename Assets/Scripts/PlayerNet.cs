@@ -59,6 +59,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     public int playerNum;
     public bool jogoTerminado;
 
+    private Queue<Vector3> positionBuffer;
+
     void Start()
     {
         defaultSpeed = speed;
@@ -67,6 +69,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         sr = GetComponent<SpriteRenderer>();
         circle = GetComponent<CircleCollider2D>();
         box = GetComponent<BoxCollider2D>();
+        positionBuffer = new Queue<Vector3>();
         Instance = this;
     }
 
@@ -74,6 +77,15 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (!photonView.IsMine || jogoTerminado)
         {
+            if (positionBuffer.Count > 0)
+            {
+                Vector3 targetPosition = positionBuffer.Peek();
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 5);
+                if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+                {
+                    positionBuffer.Dequeue();
+                }
+            }
             return;
         }
 
@@ -91,7 +103,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         Burned();
         HealthLogic();
         overCharge();
-        AtualizaMunicao();
+        UpdateMunition();
 
     }
 
@@ -128,6 +140,18 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
+    public void UpdateMunition()
+    {
+        if (munitionText != null)
+        {
+            TMP_Text textMeshPro = munitionText.GetComponent<TMP_Text>();
+            if (textMeshPro != null)
+            {
+                textMeshPro.text = munition.ToString();
+            }
+        }
+    }
+
     [PunRPC]
     void UpdateDust(bool isplaying)
     {
@@ -143,7 +167,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-
     void UpdateColorTag(string newColor)
     {
         TMP_Text textTag = playerTag.GetComponent<TMP_Text>();
@@ -151,6 +174,47 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             textTag.color = Color;
         }
+    }
+
+    [PunRPC]
+    void UpdateLife()
+    {
+        for (int i = 0; i < coracao.Length; i++)
+        {
+            if (i < life)
+            {
+                coracao[i].enabled = true;
+            }
+            else
+            {
+                coracao[i].enabled = false;
+
+            }
+        }
+    }
+
+    [PunRPC]
+    void UpdateDeath()
+    {
+        sr.enabled = false;
+        blow.SetActive(true);
+
+        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        GameManager.Instance.photonView.RPC("VerificaFimDeJogo", RpcTarget.All);
+
+        photonView.RPC("updateGameState", RpcTarget.All);
+
+        Invoke("score", 0.6f);
+    }
+
+    [PunRPC]
+    void updateGameState()
+    {
+        jogoTerminado = true;
     }
 
     [PunRPC]
@@ -199,18 +263,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
-    public void AtualizaMunicao()
-    {
-        if (munitionText != null)
-        {
-            TMP_Text textMeshPro = munitionText.GetComponent<TMP_Text>();
-            if (textMeshPro != null)
-            {
-                textMeshPro.text = munition.ToString();
-            }
-        }
-    }
-
     [PunRPC]
     void HealthLogic()
     {
@@ -220,49 +272,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             photonView.RPC("UpdateDeath", RpcTarget.All);
         }
-    }
-
-    [PunRPC]
-    void UpdateLife()
-    {
-        for (int i = 0; i < coracao.Length; i++)
-        {
-            if (i < life)
-            {
-                coracao[i].enabled = true;
-            }
-            else
-            {
-                coracao[i].enabled = false;
-
-            }
-        }
-    }
-
-
-    [PunRPC]
-    void UpdateDeath()
-    {
-        sr.enabled = false;
-        blow.SetActive(true);
-
-        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-
-        GameManager.Instance.photonView.RPC("VerificaFimDeJogo", RpcTarget.All);
-
-        photonView.RPC("updateGameState", RpcTarget.All);
-
-        Invoke("score", 0.6f);
-    }
-
-    [PunRPC]
-
-    void updateGameState()
-    {
-        jogoTerminado = true;
     }
 
     void score()
@@ -280,7 +289,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                 GameManager.Instance.Botoes.SetActive(true);
             }
         }
-        //PhotonNetwork.LoadLevel("Scene 1");
     }
 
     void applyJumpExtraGravity()
@@ -420,11 +428,11 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         
             munition = newMunition;
-            AtualizaMunicaoNet();
+            UpdateMunitionNet();
         
     }
     
-    public void AtualizaMunicaoNet()
+    public void UpdateMunitionNet()
     {
         if (munitionText != null)
         {
@@ -437,7 +445,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-
     void shoot()
     {
         
@@ -445,7 +452,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             if (munition > 0 && !isBurned)
             {
-                photonView.RPC("UpdateShoot", RpcTarget.All);
+                float lag = PhotonNetwork.GetPing() / 1000.0f;
+                Vector3 compensatedPosition = gun.position + (gun.right * shotForce * lag);
+
+                photonView.RPC("UpdateShoot", RpcTarget.All, compensatedPosition);
                 munition = 0;
                 photonView.RPC("SetMunition", RpcTarget.All, munition);
                 anim.SetTrigger("fire");
@@ -455,10 +465,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void UpdateShoot()
+    public void UpdateShoot(Vector3 compensatedPosition)
     {
         GameObject temp = Instantiate(bullet);
-        temp.transform.position = gun.position;
+        temp.transform.position = compensatedPosition;
         direction = (transform.eulerAngles.y == 180) ? 1 : -1;
         temp.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(shotForce * direction, 0f);
         temp.GetComponent<Bullet>().damage = munition;
@@ -480,7 +490,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
         Destroy(temp.gameObject, 3f);
     }
-    
+
     void Burned()
     {
         if (munition >= 4)
