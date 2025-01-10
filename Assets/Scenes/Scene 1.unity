@@ -4791,7 +4791,7 @@ Transform:
   m_GameObject: {fileID: 1165683934}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.2975, y: -0.6031, z: 5.7846}
+  m_LocalPosition: {x: 19.3, y: 1, z: 5.7846}
   m_LocalScale: {x: 2.2059996, y: 2.2059996, z: 2.2059996}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4812,7 +4812,7 @@ TargetJoint2D:
   m_BreakTorque: Infinity
   m_BreakAction: 3
   m_Anchor: {x: 0, y: 0}
-  m_Target: {x: 19.2975, y: -0.6031}
+  m_Target: {x: 19.3, y: 1}
   m_AutoConfigureTarget: 1
   m_MaxForce: 10000
   m_DampingRatio: 1
