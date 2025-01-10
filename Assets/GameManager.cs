@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager Instance;
 
-    private int jogadoresEmJogo = 0;
+    public int jogadoresEmJogo = 0;
 
     [SerializeField] private string localizacaoPrefab;
     [SerializeField] private Transform[] spawns;

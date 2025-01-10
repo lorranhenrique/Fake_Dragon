@@ -1,3 +1,4 @@
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,19 +9,33 @@ public class Score : MonoBehaviourPunCallbacks
     [SerializeField] private Button exit;
     [SerializeField] private Button restart;
 
- 
     void Start()
     {
         restart.interactable = GestorDeRede.Instance.DonoDaSala();
     }
 
-    [PunRPC]
     public void ReturnMenu()
     {
+        photonView.RPC("UpdateRestartButton", RpcTarget.AllBuffered, true);
+        StartCoroutine(LeaveRoomAfterDelay());
+    }
+
+    private IEnumerator LeaveRoomAfterDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
         PhotonNetwork.LoadLevel("TelaInicial");
     }
 
+    [PunRPC]
+    public void UpdateRestartButton(bool saiu)
+    {
+        if (saiu)
+        {
+            restart.interactable = false;
+        }
+    }
 
     public void RestartJogo()
     {
@@ -33,5 +48,4 @@ public class Score : MonoBehaviourPunCallbacks
     {
         restart.interactable = true;
     }
-
 }
