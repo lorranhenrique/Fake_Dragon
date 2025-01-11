@@ -15,7 +15,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
         }
 
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
 
