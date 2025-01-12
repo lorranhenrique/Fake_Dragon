@@ -68,6 +68,9 @@ MonoBehaviour:
   - ReiniciaCena
   - UpdateRestartButton
   - ReceivePosition
+  - SairDoLobbyNet
+  - FindEmptySpawn
+  - UpdateSpawns
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

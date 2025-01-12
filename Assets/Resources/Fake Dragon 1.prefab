@@ -5270,12 +5270,11 @@ GameObject:
   - component: {fileID: 146492872098069748}
   - component: {fileID: 6828358975004949731}
   - component: {fileID: 98856010063730247}
-  - component: {fileID: 3811440824276694375}
   - component: {fileID: 2729424208432285390}
   - component: {fileID: 2647931957121954302}
   - component: {fileID: 4524293029453628926}
   - component: {fileID: 1703879749362746536}
-  - component: {fileID: 8359150371949424257}
+  - component: {fileID: 2531596803175725428}
   m_Layer: 9
   m_Name: Fake Dragon 1
   m_TagString: Player
@@ -5379,52 +5378,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!61 &3811440824276694375
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4964418635205813167}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.6239968, y: 1.5264388}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.9999995, y: 8.151855}
-    newSize: {x: 4.9999995, y: 8.151855}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.4002147, y: 2.5422251}
-  m_EdgeRadius: 0
 --- !u!50 &2729424208432285390
 Rigidbody2D:
   serializedVersion: 5
@@ -5491,12 +5444,13 @@ MonoBehaviour:
   - {fileID: 1060981483844181651}
   blow: {fileID: 5323587144636095952}
   sr: {fileID: 0}
-  box: {fileID: 0}
-  circle: {fileID: 0}
+  capsule: {fileID: 0}
+  id: 0
   munitionText: {fileID: 8934292751060619084}
   playerTag: {fileID: 6847421310430029810}
   playerNum: 0
   jogoTerminado: 0
+  indice: 0
 --- !u!114 &4524293029453628926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5536,8 +5490,8 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!58 &8359150371949424257
-CircleCollider2D:
+--- !u!70 &2531596803175725428
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5570,8 +5524,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.16675659, y: -1.3664356}
-  m_Radius: 1.5832747
+  m_Offset: {x: -0.22941051, y: -0.014337808}
+  m_Size: {x: 2.763249, y: 5.771726}
+  m_Direction: 0
 --- !u!1 &6084039637192877733
 GameObject:
   m_ObjectHideFlags: 0

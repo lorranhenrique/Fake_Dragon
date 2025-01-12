@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using System.Collections.Generic;
 using TMPro;
+using Photon.Pun.UtilityScripts;
 
 public class PlayerNet : MonoBehaviourPunCallbacks
 {
@@ -45,13 +46,13 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     public GameObject blow;
 
     public SpriteRenderer sr;
-    public BoxCollider2D box;
-    public CircleCollider2D circle;
+    public CapsuleCollider2D capsule;
 
     public static PlayerNet Instance;
 
     private Player photonPlayer;
-    private int id;
+
+    public int id;
 
     public GameObject munitionText;
     public GameObject playerTag;
@@ -61,14 +62,15 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     private Queue<Vector3> positionBuffer;
 
+    public int indice;
+
     void Start()
     {
         defaultSpeed = speed;
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        circle = GetComponent<CircleCollider2D>();
-        box = GetComponent<BoxCollider2D>();
+        capsule = GetComponent<CapsuleCollider2D>();
         positionBuffer = new Queue<Vector3>();
         Instance = this;
     }
@@ -200,8 +202,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         blow.SetActive(true);
 
         gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false; 
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
         GameManager.Instance.photonView.RPC("VerificaFimDeJogo", RpcTarget.All);
@@ -218,9 +219,11 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void Inicialize(Player player)
+    public void Inicialize(Player player, int jogadorIndex)
     {
-        playerNum = player.ActorNumber;
+        playerNum = jogadorIndex + 1;
+
+        Debug.LogWarning("Inicializa " + playerNum);
 
         if (playerTag != null)
         {
@@ -238,7 +241,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             photonView.RPC("SyncDirection", RpcTarget.All, transform.eulerAngles);
         }
 
-        
         if (player == null)
         {
             Debug.LogError("Player passado para Inicialize é nulo!");
@@ -262,6 +264,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         }
     }
+
+
 
     [PunRPC]
     void HealthLogic()

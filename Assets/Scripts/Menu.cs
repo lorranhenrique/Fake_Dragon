@@ -1,6 +1,5 @@
 using Photon.Pun;
 using UnityEngine;
-
 public class Menu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private MenuEntrada menuEntrada;
@@ -20,9 +19,7 @@ public class Menu : MonoBehaviourPunCallbacks
         { 
             telaDeCarregamento.gameObject.SetActive(false);
             menuEntrada.gameObject.SetActive(true);
-            //menuLobby.gameObject.SetActive(true);
         }
-
     }
 
     public override void OnJoinedRoom()
@@ -35,7 +32,6 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         menuEntrada.gameObject.SetActive(false);
         menuLobby.gameObject.SetActive(false);
-
         menu.SetActive(true);
     }
 
@@ -47,12 +43,12 @@ public class Menu : MonoBehaviourPunCallbacks
     public void SairDoLobby()
     {
         GestorDeRede.Instance.SairDoLobby();
-        mudaMenu(menuEntrada.gameObject);
+        menuLobby.gameObject.SetActive(false);
+        menuEntrada.gameObject.SetActive(true);
     }
 
     public void ComecaJogo(string nomeCena)
     {
         GestorDeRede.Instance.photonView.RPC("ComecaJogo", RpcTarget.All, nomeCena);
-        //mudaMenu(menuEntrada.gameObject);
     }
 }

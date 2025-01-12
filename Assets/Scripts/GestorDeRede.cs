@@ -17,8 +17,6 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
         Instance = this;
         //DontDestroyOnLoad(gameObject);
     }
-
-
     private void Start()
     {
         Debug.Log("Tentando conectar ao Photon...");
@@ -48,6 +46,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     public void MudaNick(string nickName)
     {
         PhotonNetwork.NickName = nickName;
+        
     }
 
     public string ObterListaDeJogadores()
@@ -67,7 +66,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     }
 
     public void SairDoLobby()
-    {
+    { 
         PhotonNetwork.LeaveRoom();
     }
 

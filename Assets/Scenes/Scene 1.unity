@@ -12064,6 +12064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2717968a2ffa04bb768f6ee4250805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jogadoresEmJogo: 0
   localizacaoPrefab: Fake Dragon 1
   spawns:
   - {fileID: 1598534185}
