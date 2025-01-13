@@ -13,7 +13,10 @@ public class TelaInicial : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.anyKeyDown)
+        {
+            EntrarNoJogo();
+        }
     }
 
     public void EntrarNoJogo()
