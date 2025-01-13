@@ -88,8 +88,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                     positionBuffer.Dequeue();
                 }
             }
-            return;
+            return; // Retorna imediatamente se não for o jogador local ou se o jogo terminou
         }
+
+        if (jogoTerminado) return; // Adiciona uma verificação extra aqui para impedir qualquer movimento ou ação
 
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
@@ -106,8 +108,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         HealthLogic();
         overCharge();
         UpdateMunition();
-
     }
+
 
     [PunRPC]
     void UpdateAnimationState(string animationState, bool value)
@@ -196,29 +198,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void UpdateDeath()
-    {
-        sr.enabled = false;
-        blow.SetActive(true);
-
-        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        gameObject.GetComponent<CapsuleCollider2D>().enabled = false; 
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-
-        GameManager.Instance.photonView.RPC("VerificaFimDeJogo", RpcTarget.All);
-
-        photonView.RPC("updateGameState", RpcTarget.All);
-
-        Invoke("score", 0.6f);
-    }
-
-    [PunRPC]
-    void updateGameState()
-    {
-        jogoTerminado = true;
-    }
-
-    [PunRPC]
     public void Inicialize(Player player, int jogadorIndex)
     {
         playerNum = jogadorIndex + 1;
@@ -265,8 +244,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
-
-
     [PunRPC]
     void HealthLogic()
     {
@@ -274,8 +251,36 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
         if (life <= 0)
         {
-            photonView.RPC("UpdateDeath", RpcTarget.All);
+            photonView.RPC("DisablePlayer", RpcTarget.All);
+            //photonView.RPC("UpdateDeath", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void DisablePlayer()
+    {
+        sr.enabled = false;
+        blow.SetActive(true);
+
+        gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        photonView.RPC("updateGameState", RpcTarget.All);
+        UpdateDeath();
+    }
+
+    //[PunRPC]
+    void UpdateDeath()
+    {
+        GameManager.Instance.VerificaFimDeJogo();
+        Invoke("score", 0.5f);
+    }
+
+    [PunRPC]
+    void updateGameState()
+    {
+        jogoTerminado = true;
     }
 
     void score()

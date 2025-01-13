@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] public GameObject placarVitoria;
     [SerializeField] public GameObject placarDerrota;
+    [SerializeField] public GameObject placarEmpate;
     [SerializeField] public GameObject Botoes;
 
 
@@ -48,7 +49,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             photonView.RPC("CriaJogador", RpcTarget.AllBuffered);
         }
     }
-
 
     [PunRPC]
     private void AdicionaJogador()
@@ -119,9 +119,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         spawnsOcupados[i] = true;
     }
 
-
-    [PunRPC]
-    private void VerificaFimDeJogo()
+    public void VerificaFimDeJogo()
     {
         int jogadoresVivos = 0;
         foreach (var jogador in jogadores)
@@ -136,23 +134,59 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             foreach (var player in jogadores)
             {
-                if (player.life > 0)
+                if (player.life > 0 && !GameManager.Instance.placarVitoria.activeSelf)
                 {
                     player.photonView.RPC("UpdateVitoria", RpcTarget.All);
                 }
-                else
+                else if (player.life <= 0 && !GameManager.Instance.placarDerrota.activeSelf)
                 {
                     player.photonView.RPC("UpdateDerrota", RpcTarget.All);
                 }
             }
+        }
+        else if (jogadoresVivos == 0)
+        {
+            StartCoroutine(CheckEmpateDelayed());
+        }
+    }
+
+
+    private IEnumerator CheckEmpateDelayed()
+    {
+        yield return new WaitForSeconds(0.6f);
+        UpdateEmpate();
+    }
+
+    private IEnumerator CheckVitoriaDelayed()
+    {
+        yield return new WaitForSeconds(0.3f);
+        photonView.RPC("UpdateVitoria", RpcTarget.All);
+    }
+
+    private IEnumerator CheckDerrotaDelayed()
+    {
+        yield return new WaitForSeconds(0.3f);
+        photonView.RPC("UpdateDerrota", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void UpdateEmpate()
+    {
+        if (Instance != null)
+        {
+            Instance.placarVitoria.SetActive(false);
+            Instance.placarDerrota.SetActive(false);
+            Instance.placarEmpate.SetActive(true);
+            Instance.Botoes.SetActive(true);
         }
     }
 
     [PunRPC]
     public void UpdateVitoria()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
         {
+            GameManager.Instance.placarDerrota.SetActive(false);
             GameManager.Instance.placarVitoria.SetActive(true);
             GameManager.Instance.Botoes.SetActive(true);
         }
@@ -161,11 +195,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void UpdateDerrota()
     {
-        if (GameManager.Instance != null)
+        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
         {
+            GameManager.Instance.placarVitoria.SetActive(false);
             GameManager.Instance.placarDerrota.SetActive(true);
             GameManager.Instance.Botoes.SetActive(true);
         }
     }
+
 
 }

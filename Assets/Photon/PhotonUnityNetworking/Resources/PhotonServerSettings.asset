@@ -71,6 +71,9 @@ MonoBehaviour:
   - SairDoLobbyNet
   - FindEmptySpawn
   - UpdateSpawns
+  - UpdatePlacar
+  - DisablePlayer
+  - UpdateEmpate
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
