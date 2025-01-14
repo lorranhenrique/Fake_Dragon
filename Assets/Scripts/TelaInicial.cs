@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class TelaInicial : MonoBehaviour
 {
-
     [SerializeField] private Button entrar;
+    [SerializeField] private Button sair;
+
     void Start()
     {
         
@@ -13,7 +14,7 @@ public class TelaInicial : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             EntrarNoJogo();
         }
@@ -22,5 +23,10 @@ public class TelaInicial : MonoBehaviour
     public void EntrarNoJogo()
     {
         SceneManager.LoadScene("Menu");
+    }
+
+    public void saiDoJogo()
+    {
+        Application.Quit();
     }
 }
