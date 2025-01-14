@@ -1,3 +1,4 @@
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 public class Menu : MonoBehaviourPunCallbacks
@@ -5,12 +6,42 @@ public class Menu : MonoBehaviourPunCallbacks
     [SerializeField] private MenuEntrada menuEntrada;
     [SerializeField] private MenuLobby menuLobby;
     [SerializeField] private TelaDeCarregamento telaDeCarregamento;
+    [SerializeField] private TelaDePause telaDePause;
 
     private void Start()
     {
         menuEntrada.gameObject.SetActive(false);
         menuLobby.gameObject.SetActive(false);
         telaDeCarregamento.gameObject.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) { 
+            OpenPause();
+        }
+    }
+
+    public void OpenPause()
+    {
+        if (!telaDePause.gameObject.activeSelf)
+        {
+            telaDePause.gameObject.SetActive(true);
+            return;
+        }
+        ClosePause();
+    }
+
+    public void ClosePause()
+    {
+        telaDePause.gameObject.SetActive(false);
+    }
+
+    public void ReturnMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("TelaInicial");
     }
 
     public override void OnConnectedToMaster()

@@ -157,18 +157,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         UpdateEmpate();
     }
 
-    private IEnumerator CheckVitoriaDelayed()
-    {
-        yield return new WaitForSeconds(0.3f);
-        photonView.RPC("UpdateVitoria", RpcTarget.All);
-    }
-
-    private IEnumerator CheckDerrotaDelayed()
-    {
-        yield return new WaitForSeconds(0.3f);
-        photonView.RPC("UpdateDerrota", RpcTarget.All);
-    }
-
     [PunRPC]
     public void UpdateEmpate()
     {
