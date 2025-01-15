@@ -5451,6 +5451,7 @@ MonoBehaviour:
   playerNum: 0
   jogoTerminado: 0
   indice: 0
+  pausado: 0
 --- !u!114 &4524293029453628926
 MonoBehaviour:
   m_ObjectHideFlags: 0

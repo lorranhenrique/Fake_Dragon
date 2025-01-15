@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
+using Photon.Realtime;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject placarDerrota;
     [SerializeField] public GameObject placarEmpate;
     [SerializeField] public GameObject Botoes;
+    [SerializeField] public GameObject telaDePause;
 
 
     private void Awake()
@@ -40,6 +42,44 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
         jogadores = new List<PlayerNet>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            OpenPause();
+        }
+    }
+
+    public void OpenPause()
+    {
+        if (!telaDePause.gameObject.activeSelf)
+        {
+            telaDePause.gameObject.SetActive(true);
+            photonView.RPC("AtualizaPausaPlayer", RpcTarget.All, true);
+            return;
+        }
+        ClosePause();
+    }
+
+    public void ClosePause()
+    {
+        telaDePause.gameObject.SetActive(false);
+        photonView.RPC("AtualizaPausaPlayer", RpcTarget.All,false);
+    }
+
+    [PunRPC]
+
+    void AtualizaPausaPlayer(bool situação)
+    {
+        PlayerNet.Instance.pausado = situação;
+    }
+
+    public void ReturnMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("TelaInicial");
     }
 
     public void OnSceneLoaded(int sceneBuildIndex, string sceneName)

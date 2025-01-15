@@ -63,6 +63,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     private Queue<Vector3> positionBuffer;
 
     public int indice;
+    public bool pausado;
 
     void Start()
     {
@@ -77,7 +78,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (!photonView.IsMine || jogoTerminado)
+        if (!photonView.IsMine || jogoTerminado || pausado)
         {
             if (positionBuffer.Count > 0)
             {
@@ -88,10 +89,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                     positionBuffer.Dequeue();
                 }
             }
-            return; // Retorna imediatamente se não for o jogador local ou se o jogo terminou
+            return;
         }
 
-        if (jogoTerminado) return; // Adiciona uma verificação extra aqui para impedir qualquer movimento ou ação
 
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
