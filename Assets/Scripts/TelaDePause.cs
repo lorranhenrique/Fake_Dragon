@@ -18,4 +18,9 @@ public class TelaDePause : MonoBehaviour
     {
         
     }
+
+    public void SetContinueButtonInteractable(bool isInteractable)
+    {
+        continuar.interactable = isInteractable;
+    }
 }

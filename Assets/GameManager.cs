@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject placarEmpate;
     [SerializeField] public GameObject Botoes;
     [SerializeField] public GameObject telaDePause;
+    [SerializeField] public TelaDePause pause;
 
 
     private void Awake()
@@ -29,7 +30,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -44,36 +44,46 @@ public class GameManager : MonoBehaviourPunCallbacks
         jogadores = new List<PlayerNet>();
     }
 
+    private int jogadorQuePausou = -1;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            OpenPause();
-        }
-    }
-
-    public void OpenPause()
-    {
-        if (!telaDePause.gameObject.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape) && !telaDePause.gameObject.activeSelf)
         {
-            telaDePause.gameObject.SetActive(true);
-            photonView.RPC("AtualizaPausaPlayer", RpcTarget.All, true);
+            OpenPause();
             return;
         }
         ClosePause();
     }
 
+    public void OpenPause()
+    {
+        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, true, PhotonNetwork.LocalPlayer.ActorNumber);
+    }
+
     public void ClosePause()
     {
-        telaDePause.gameObject.SetActive(false);
-        photonView.RPC("AtualizaPausaPlayer", RpcTarget.All,false);
+        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, false, -1);
     }
 
     [PunRPC]
-
-    void AtualizaPausaPlayer(bool situação)
+    void AtualizaPausaPlayer(bool situação, int actorNumberQuePausou)
     {
+        telaDePause.gameObject.SetActive(situação);
         PlayerNet.Instance.pausado = situação;
+
+        bool isLocalPlayerWhoPaused = (PhotonNetwork.LocalPlayer.ActorNumber == actorNumberQuePausou);
+
+        if (situação)
+        {
+            pause.SetContinueButtonInteractable(isLocalPlayerWhoPaused);
+            Time.timeScale = 0f;
+            return;
+        }
+        pause.SetContinueButtonInteractable(true);
+        Time.timeScale = 1f;
     }
+
 
     public void ReturnMenu()
     {
@@ -189,7 +199,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(CheckEmpateDelayed());
         }
     }
-
 
     private IEnumerator CheckEmpateDelayed()
     {

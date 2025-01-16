@@ -252,7 +252,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (life <= 0)
         {
             photonView.RPC("DisablePlayer", RpcTarget.All);
-            //photonView.RPC("UpdateDeath", RpcTarget.All);
+   
         }
     }
 
@@ -270,7 +270,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         UpdateDeath();
     }
 
-    //[PunRPC]
     void UpdateDeath()
     {
         GameManager.Instance.VerificaFimDeJogo();
@@ -297,6 +296,28 @@ public class PlayerNet : MonoBehaviourPunCallbacks
                 GameManager.Instance.placarVitoria.SetActive(true);
                 GameManager.Instance.Botoes.SetActive(true);
             }
+        }
+    }
+
+    [PunRPC]
+    public void UpdateVitoria()
+    {
+        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
+        {
+            GameManager.Instance.placarDerrota.SetActive(false);
+            GameManager.Instance.placarVitoria.SetActive(true);
+            GameManager.Instance.Botoes.SetActive(true);
+        }
+    }
+
+    [PunRPC]
+    public void UpdateDerrota()
+    {
+        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
+        {
+            GameManager.Instance.placarVitoria.SetActive(false);
+            GameManager.Instance.placarDerrota.SetActive(true);
+            GameManager.Instance.Botoes.SetActive(true);
         }
     }
 
