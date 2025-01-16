@@ -3,22 +3,15 @@ using UnityEngine;
 
 public class Pepper : MonoBehaviour
 {
-
     private SpriteRenderer sr;
     private BoxCollider2D box;
     public GameObject collected;
     public bool coletada;
 
-
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         box = GetComponent<BoxCollider2D>();
-    }
-
-    void Update()
-    {
-        
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -39,7 +32,6 @@ public class Pepper : MonoBehaviour
 
     private void OnDestroy()
     {
-        
         OnDestroyed?.Invoke();
     }
 }

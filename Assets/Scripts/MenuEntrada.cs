@@ -8,12 +8,23 @@ public class MenuEntrada : MonoBehaviour
 
     public void CriaSala()
     {
-        GestorDeRede.Instance.MudaNick(nomeDoJogador.text);
-        GestorDeRede.Instance.CriaSala(nomeDaSala.text);
+        if(!string.IsNullOrWhiteSpace(nomeDoJogador.text) && !string.IsNullOrWhiteSpace(nomeDaSala.text))
+        {
+            GestorDeRede.Instance.MudaNick(nomeDoJogador.text);
+            GestorDeRede.Instance.CriaSala(nomeDaSala.text);
+            return;
+        }
+        Debug.LogWarning("O nome do jogador ou o nome da sala está vazio!");
+
     }
     public void EntraSala()
     {
-        GestorDeRede.Instance.MudaNick(nomeDoJogador.text);
-        GestorDeRede.Instance.EntraSala(nomeDaSala.text);
+        if (!string.IsNullOrWhiteSpace(nomeDoJogador.text) && !string.IsNullOrWhiteSpace(nomeDaSala.text))
+        {
+            GestorDeRede.Instance.MudaNick(nomeDoJogador.text);
+            GestorDeRede.Instance.EntraSala(nomeDaSala.text);
+            return;
+        }
+        Debug.LogWarning("O nome do jogador ou o nome da sala está vazio!");
     }
 }

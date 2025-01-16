@@ -11,9 +11,8 @@ public class FollowPlayer : MonoBehaviour
         {
             transform.position = player.position + offset;
             transform.rotation = player.rotation;
-            //transform.LookAt(Camera.main.transform);
             Vector3 direction = transform.position - Camera.main.transform.position;
-            direction.y = 0; // Mantém a rotação apenas nos eixos X e Z
+            direction.y = 0;
             transform.rotation = Quaternion.LookRotation(direction);
         }
     }

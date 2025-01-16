@@ -5,7 +5,6 @@ using System.Collections;
 
 public class TelaDeCarregamento : MonoBehaviour
 {
-
     void Start()
     {
         

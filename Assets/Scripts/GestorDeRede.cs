@@ -13,9 +13,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
             gameObject.SetActive(false);
             return;
         }
-
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {

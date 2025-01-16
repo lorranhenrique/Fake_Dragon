@@ -14,40 +14,13 @@ public class Bullet : MonoBehaviour
     public float acelerator;
     public int shooter;
 
-
     void Start()
     {
-        
         smoke.Play();
         circle = GetComponent<CircleCollider2D>();
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         Instance = this;
-    }
-
-
-    void animationTypeChange()
-    {
-        switch (damage)
-        {
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            default:
-                Debug.Log("Erro de disparo");
-                break;
-        }
-    }
-
-    private void Update()
-    {
-       
     }
 
     void OnTriggerEnter2D(Collider2D collider)

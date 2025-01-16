@@ -124,11 +124,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             anim.SetTrigger(triggerName);
             Debug.Log($"Trigger {triggerName} ativado.");
+            return;
         }
-        else
-        {
-            Debug.LogError("Animator não foi inicializado antes de SetTrigger.");
-        }
+        Debug.LogError("Animator não foi inicializado antes de SetTrigger.");
     }
     
     [PunRPC]
@@ -137,11 +135,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (isplaying)
         {
             fire.Play();
+            return;
         }
-        else
-        {
-            fire.Stop();
-        }
+        fire.Stop();
     }
 
     public void UpdateMunition()
@@ -163,11 +159,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (isplaying)
         {
             dust.Play();
+            return;
         }
-        else
-        {
-            dust.Stop();
-        }
+        dust.Stop();
+        
     }
 
     [PunRPC]
@@ -188,12 +183,13 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (i < life)
             {
                 coracao[i].enabled = true;
+                //return;
             }
             else
             {
                 coracao[i].enabled = false;
-
             }
+           
         }
     }
 
@@ -252,7 +248,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         if (life <= 0)
         {
             photonView.RPC("DisablePlayer", RpcTarget.All);
-   
         }
     }
 
@@ -266,14 +261,14 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        photonView.RPC("updateGameState", RpcTarget.All);
+        photonView.RPC("updateGameState", RpcTarget.AllBuffered);
         UpdateDeath();
     }
 
     void UpdateDeath()
     {
         GameManager.Instance.VerificaFimDeJogo();
-        Invoke("score", 0.5f);
+        Invoke("score", 0.3f);
     }
 
     [PunRPC]
@@ -334,12 +329,9 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void gravityJump()
     {
-        if (this.isJumping)
+        if (this.isJumping && !Input.GetKey(KeyCode.Space))
         {
-            if (!Input.GetKey(KeyCode.Space))
-            {
-                applyJumpExtraGravity();
-            }
+           applyJumpExtraGravity();
         }
     }
 
@@ -456,10 +448,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetMunition(int newMunition)
     {
-        
-            munition = newMunition;
-            UpdateMunitionNet();
-        
+        munition = newMunition;
+        UpdateMunitionNet();
     }
     
     public void UpdateMunitionNet()
@@ -554,7 +544,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             Debug.LogError("Collision ou collision.gameObject está nulo.");
             return;
         }
-
         if (collision.gameObject.layer == 8)
         {
             isJumping = false;
@@ -563,13 +552,10 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             {
                 anim.SetBool("jump", false);
                 photonView.RPC("UpdateAnimationState", RpcTarget.Others, "jump", anim.GetBool("jump"));
+                return;
             }
-            else
-            {
-                Debug.LogWarning("Animator não foi inicializado.");
-            }
+            Debug.LogWarning("Animator não foi inicializado.");
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

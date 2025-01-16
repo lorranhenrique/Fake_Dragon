@@ -62,32 +62,27 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void OpenPause()
     {
-        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, true, PhotonNetwork.LocalPlayer.ActorNumber);
+        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, true);
     }
 
     public void ClosePause()
     {
-        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, false, -1);
+        photonView.RPC("AtualizaPausaPlayer", RpcTarget.AllBuffered, false);
     }
 
     [PunRPC]
-    void AtualizaPausaPlayer(bool situação, int actorNumberQuePausou)
+    void AtualizaPausaPlayer(bool situação)
     {
         telaDePause.gameObject.SetActive(situação);
         PlayerNet.Instance.pausado = situação;
 
-        bool isLocalPlayerWhoPaused = (PhotonNetwork.LocalPlayer.ActorNumber == actorNumberQuePausou);
-
         if (situação)
         {
-            pause.SetContinueButtonInteractable(isLocalPlayerWhoPaused);
             Time.timeScale = 0f;
             return;
         }
-        pause.SetContinueButtonInteractable(true);
         Time.timeScale = 1f;
     }
-
 
     public void ReturnMenu()
     {
@@ -206,7 +201,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private IEnumerator CheckEmpateDelayed()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         UpdateEmpate();
     }
 
