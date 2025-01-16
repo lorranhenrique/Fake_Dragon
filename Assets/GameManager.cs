@@ -48,12 +48,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !telaDePause.gameObject.activeSelf)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OpenPause();
-            return;
+            if (!telaDePause.gameObject.activeSelf)
+            {
+                OpenPause();
+                return;
+            }
+            ClosePause();
         }
-        ClosePause();
+        
     }
 
     public void OpenPause()
