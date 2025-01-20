@@ -76,6 +76,8 @@ MonoBehaviour:
   - UpdateEmpate
   - AtualizaPausaPlayer
   - UpdateStatePause
+  - UpdateSounds
+  - UpdateSoundsLoop
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

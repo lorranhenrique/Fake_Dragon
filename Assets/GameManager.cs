@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         jogadores = new List<PlayerNet>();
     }
 
-    private int jogadorQuePausou = -1;
+    //private int jogadorQuePausou = -1;
 
     private void Update()
     {
