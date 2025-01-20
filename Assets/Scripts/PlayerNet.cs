@@ -66,7 +66,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     public bool pausado;
 
     public AudioSource audioS;
-    public AudioSource audioSL;
+    public AudioSource audioSWalk;
+    public AudioSource audioSBurned;
     public AudioClip[] sounds;
 
     void Start()
@@ -128,17 +129,30 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-
-    void UpdateSoundsLoop(int posicaoVetor, bool ligado)
+    void UpdateSoundsWalk(int posicaoVetor, bool ligado)
     {
         if (ligado)
         {
-            audioSL.clip = sounds[posicaoVetor];
-            audioSL.Play();
+            audioSWalk.clip = sounds[posicaoVetor];
+            audioSWalk.Play();
             return;
         }
-        audioSL.Stop();
+        audioSWalk.Stop();
     }
+
+
+    [PunRPC]
+    void UpdateSoundsBurned(int posicaoVetor, bool ligado)
+    {
+        if (ligado)
+        {
+            audioSBurned.clip = sounds[posicaoVetor];
+            audioSBurned.Play();
+            return;
+        }
+        audioSBurned.Stop();
+    } 
+
     [PunRPC]
     void UpdateAnimationState(string animationState, bool value)
     {
@@ -418,7 +432,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             CreateDust();
             photonView.RPC("UpdateDust", RpcTarget.All, true);
-            photonView.RPC("UpdateSoundsLoop", RpcTarget.All, 5, true);
+            photonView.RPC("UpdateSoundsWalk", RpcTarget.All, 5, true);
         }
 
         if (dir.x > 0)
@@ -550,7 +564,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (munition >= 4)
         {
-            photonView.RPC("UpdateSounds", RpcTarget.All, 1, true);
+            photonView.RPC("UpdateSoundsBurned", RpcTarget.All, 1, true);
             isBurned = true;
         }
     }
@@ -571,7 +585,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void burnDelay()
     {
         isBurned = false;
-        photonView.RPC("UpdateSounds", RpcTarget.All, 1, false);
+        photonView.RPC("UpdateSoundsBurned", RpcTarget.All, 1, false);
         anim.ResetTrigger("burn");
     }
 

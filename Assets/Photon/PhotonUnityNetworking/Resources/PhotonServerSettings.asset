@@ -78,6 +78,8 @@ MonoBehaviour:
   - UpdateStatePause
   - UpdateSounds
   - UpdateSoundsLoop
+  - UpdateSoundsWalk
+  - UpdateSoundsBurned
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
