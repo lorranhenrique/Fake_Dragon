@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject Botoes;
     [SerializeField] public GameObject telaDePause;
     [SerializeField] public TelaDePause pause;
+
+    public int sumActors;
 
 
     private void Awake()
@@ -112,10 +116,82 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log(jogadoresEmJogo);
     }
 
+    /*[PunRPC]
+    private void CriaJogador()
+    {
+        sumActors += PhotonNetwork.LocalPlayer.ActorNumber;
+        //photonView.RPC("SetPlayer", RpcTarget.AllBuffered);
+        Debug.LogWarning("sum" + sumActors);
+        int indice = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        Debug.LogWarning("Indice " + indice);
+
+        if ((indice / sumActors)*2 < 1f)
+        {
+            int jogadorIndex = 0;
+
+            if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
+            {
+                if (!spawnsOcupados[jogadorIndex])
+                {
+                    Debug.LogWarning("Index 1 " + jogadorIndex);
+                    photonView.RPC("UpdateSpawns", RpcTarget.AllBuffered, jogadorIndex);
+                    var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
+                    var jogador = jogadorOBJ.GetComponent<PlayerNet>();
+                    jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, jogadorIndex);
+                    Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
+                }
+                else
+                {
+                    Debug.LogWarning($"O spawn {jogadorIndex} já está ocupado!");
+                }
+
+            }
+            else
+            {
+                Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
+                Invoke("FindSpawn", 0.3f);
+            }
+        }
+        else
+        {
+            int jogadorIndex = 1;
+
+            if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
+            {
+                if (!spawnsOcupados[jogadorIndex])
+                {
+                    Debug.LogWarning("Index 1 " + jogadorIndex);
+                    photonView.RPC("UpdateSpawns", RpcTarget.AllBuffered, jogadorIndex);
+                    var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
+                    var jogador = jogadorOBJ.GetComponent<PlayerNet>();
+                    jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, jogadorIndex);
+                    Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
+                }
+                else
+                {
+                    Debug.LogWarning($"O spawn {jogadorIndex} já está ocupado!");
+                }
+
+            }
+            else
+            {
+                Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
+                Invoke("FindSpawn", 0.3f);
+            }
+        }
+    }*/
+
+    [PunRPC]
+    void UpdateSpawns(int index)
+    {
+        spawnsOcupados[index] = true;
+    }
+
     [PunRPC]
     private void CriaJogador()
     {
-        int jogadorIndex = PhotonNetwork.LocalPlayer.ActorNumber -1;
+        int jogadorIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} tem número {jogadorIndex}");
 
         if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
@@ -143,6 +219,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+
     private void FindSpawn()
     {
         for (int i = 0; i < spawns.Length; i++)
@@ -160,12 +237,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
         Debug.LogWarning("Nenhum spawn vazio disponível!");
-    }
-
-    [PunRPC]
-    private void UpdateSpawns(int i)
-    {
-        spawnsOcupados[i] = true;
     }
 
     public void VerificaFimDeJogo()

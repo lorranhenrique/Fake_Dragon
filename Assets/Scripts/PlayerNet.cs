@@ -140,7 +140,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         audioSWalk.Stop();
     }
 
-
     [PunRPC]
     void UpdateSoundsBurned(int posicaoVetor, bool ligado)
     {
