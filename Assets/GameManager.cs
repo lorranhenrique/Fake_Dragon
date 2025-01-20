@@ -76,11 +76,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         telaDePause.gameObject.SetActive(situação);
         PlayerNet.Instance.pausado = situação;
 
-        if (situação)
+        /*if (situação)
         {
             Time.timeScale = 0f;
             return;
-        }
+        }*/
         Time.timeScale = 1f;
     }
 
