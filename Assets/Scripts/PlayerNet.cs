@@ -116,18 +116,28 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     [PunRPC]
 
-    void UpdateSounds(int posicaoVetor)
+    void UpdateSounds(int posicaoVetor, bool ligado)
     {
-        audioS.clip = sounds[posicaoVetor];
-        audioS.Play();
+        if (ligado)
+        {
+            audioS.clip = sounds[posicaoVetor];
+            audioS.Play();
+            return;
+        }
+        audioS.Stop();
     }
 
     [PunRPC]
 
-    void UpdateSoundsLoop(int posicaoVetor)
+    void UpdateSoundsLoop(int posicaoVetor, bool ligado)
     {
-        audioSL.clip = sounds[posicaoVetor];
-        audioSL.Play();
+        if (ligado)
+        {
+            audioSL.clip = sounds[posicaoVetor];
+            audioSL.Play();
+            return;
+        }
+        audioSL.Stop();
     }
     [PunRPC]
     void UpdateAnimationState(string animationState, bool value)
@@ -357,7 +367,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (Input.GetButtonDown("Fire2") && inDash == false)
         {
-            photonView.RPC("UpdateSounds", RpcTarget.All, 3);
+            photonView.RPC("UpdateSounds", RpcTarget.All, 3, true);
 
             defaultSpeed = speed;
             speed = dashSpeed;
@@ -408,7 +418,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             CreateDust();
             photonView.RPC("UpdateDust", RpcTarget.All, true);
-            photonView.RPC("UpdateSoundsLoop", RpcTarget.All, 5);
+            photonView.RPC("UpdateSoundsLoop", RpcTarget.All, 5, true);
         }
 
         if (dir.x > 0)
@@ -416,6 +426,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
             photonView.RPC("SyncDirection", RpcTarget.Others, transform.eulerAngles);
+            
 
         }
         else if (dir.x < 0)
@@ -423,6 +434,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             anim.SetBool("walk", true);
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
             photonView.RPC("SyncDirection", RpcTarget.Others, transform.eulerAngles);
+            
 
         }
         else
@@ -438,7 +450,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             
             if (!isJumping)
             {
-                photonView.RPC("UpdateSounds", RpcTarget.All, 6);
+                photonView.RPC("UpdateSounds", RpcTarget.All, 6, true);
                 rig.linearVelocity = new Vector2(rig.linearVelocityX, 0);
                 rig.linearVelocity += Vector2.up * jumpForce;
                 doubleJumping = true;
@@ -455,7 +467,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             {
                 if (doubleJumping)
                 {
-                    photonView.RPC("UpdateSounds", RpcTarget.All, 6);
+                    photonView.RPC("UpdateSounds", RpcTarget.All, 6, true);
                     rig.linearVelocity = new Vector2(rig.linearVelocityX, 0);
                     rig.linearVelocity += Vector2.up * jumpForce;
                     doubleJumping = false;
@@ -494,7 +506,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         {
             if (munition > 0 && !isBurned)
             {
-                photonView.RPC("UpdateSounds", RpcTarget.All, 4);
+                photonView.RPC("UpdateSounds", RpcTarget.All, 4, true);
                 float lag = PhotonNetwork.GetPing() / 1000.0f;
                 Vector3 compensatedPosition = gun.position + (gun.right * shotForce * lag);
 
@@ -538,7 +550,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (munition >= 4)
         {
-            photonView.RPC("UpdateSounds", RpcTarget.All, 1);
+            photonView.RPC("UpdateSounds", RpcTarget.All, 1, true);
             isBurned = true;
         }
     }
@@ -547,6 +559,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (isBurned)
         {
+            
             munition = 2;
             photonView.RPC("SetMunition", RpcTarget.All, munition);
             anim.SetTrigger("burn");
@@ -558,6 +571,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void burnDelay()
     {
         isBurned = false;
+        photonView.RPC("UpdateSounds", RpcTarget.All, 1, false);
         anim.ResetTrigger("burn");
     }
 
@@ -588,7 +602,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
         if (collision.gameObject.tag == "Pepper")
         {
-            photonView.RPC("UpdateSounds", RpcTarget.All, 0);
+            photonView.RPC("UpdateSounds", RpcTarget.All, 0, true);
             this.munition++;
             photonView.RPC("SetMunition", RpcTarget.All, munition);
         }
@@ -597,7 +611,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
         if(bullet != null && bullet.shooter != this.playerNum)
         {
-            photonView.RPC("UpdateSounds", RpcTarget.All, 2);
+            photonView.RPC("UpdateSounds", RpcTarget.All, 2, true);
             anim.SetTrigger("damage");
             photonView.RPC("UpdateAnimationTrigger", RpcTarget.Others, "damage");
         }
