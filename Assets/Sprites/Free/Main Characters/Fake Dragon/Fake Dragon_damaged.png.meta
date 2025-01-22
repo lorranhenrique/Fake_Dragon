@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Fake Dragon_damaged_0: 3338276938126824824
+      Fake Dragon_damaged_1: 2623446850955596140
+      Fake Dragon_damaged_2: -5573674623678239967
+      Fake Dragon_damaged_3: -7248797273945931182
+      Fake Dragon_damaged_4: 3830234222827075488
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

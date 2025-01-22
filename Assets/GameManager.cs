@@ -116,72 +116,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log(jogadoresEmJogo);
     }
 
-    /*[PunRPC]
-    private void CriaJogador()
-    {
-        sumActors += PhotonNetwork.LocalPlayer.ActorNumber;
-        //photonView.RPC("SetPlayer", RpcTarget.AllBuffered);
-        Debug.LogWarning("sum" + sumActors);
-        int indice = PhotonNetwork.LocalPlayer.ActorNumber;
-
-        Debug.LogWarning("Indice " + indice);
-
-        if ((indice / sumActors)*2 < 1f)
-        {
-            int jogadorIndex = 0;
-
-            if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
-            {
-                if (!spawnsOcupados[jogadorIndex])
-                {
-                    Debug.LogWarning("Index 1 " + jogadorIndex);
-                    photonView.RPC("UpdateSpawns", RpcTarget.AllBuffered, jogadorIndex);
-                    var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
-                    var jogador = jogadorOBJ.GetComponent<PlayerNet>();
-                    jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, jogadorIndex);
-                    Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
-                }
-                else
-                {
-                    Debug.LogWarning($"O spawn {jogadorIndex} já está ocupado!");
-                }
-
-            }
-            else
-            {
-                Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
-                Invoke("FindSpawn", 0.3f);
-            }
-        }
-        else
-        {
-            int jogadorIndex = 1;
-
-            if (jogadorIndex >= 0 && jogadorIndex < spawns.Length)
-            {
-                if (!spawnsOcupados[jogadorIndex])
-                {
-                    Debug.LogWarning("Index 1 " + jogadorIndex);
-                    photonView.RPC("UpdateSpawns", RpcTarget.AllBuffered, jogadorIndex);
-                    var jogadorOBJ = PhotonNetwork.Instantiate(localizacaoPrefab, spawns[jogadorIndex].position, Quaternion.identity);
-                    var jogador = jogadorOBJ.GetComponent<PlayerNet>();
-                    jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, jogadorIndex);
-                    Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
-                }
-                else
-                {
-                    Debug.LogWarning($"O spawn {jogadorIndex} já está ocupado!");
-                }
-
-            }
-            else
-            {
-                Debug.LogError($"Índice de spawn inválido: {jogadorIndex}");
-                Invoke("FindSpawn", 0.3f);
-            }
-        }
-    }*/
-
     [PunRPC]
     void UpdateSpawns(int index)
     {
@@ -218,7 +152,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             Invoke("FindSpawn", 0.3f);
         }
     }
-
 
     private void FindSpawn()
     {
