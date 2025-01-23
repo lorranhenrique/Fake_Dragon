@@ -224,7 +224,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (i < life)
             {
                 coracao[i].enabled = true;
-                //return;
             }
             else
             {
@@ -237,9 +236,15 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Inicialize(Player player, int jogadorIndex)
     {
+        if (player == null)
+        {
+            Debug.LogError("Player passado para Inicialize é nulo!");
+            return;
+        }
+
         playerNum = jogadorIndex + 1;
 
-        Debug.LogWarning("Inicializa " + playerNum);
+        Debug.LogWarning($"Inicializa {playerNum} para o jogador {player.NickName}");
 
         if (playerTag != null)
         {
@@ -255,12 +260,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
             photonView.RPC("UpdateColorTag", RpcTarget.AllBuffered, "#FF0074");
             photonView.RPC("SyncDirection", RpcTarget.All, transform.eulerAngles);
-        }
-
-        if (player == null)
-        {
-            Debug.LogError("Player passado para Inicialize é nulo!");
-            return;
         }
 
         photonPlayer = player;
@@ -309,7 +308,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void UpdateDeath()
     {
         GameManager.Instance.VerificaFimDeJogo();
-        Invoke("score", 0.3f);
+        Invoke("score", 0.5f);
     }
 
     [PunRPC]

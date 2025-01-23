@@ -6,6 +6,7 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -47,8 +48,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         photonView.RPC("AdicionaJogador", RpcTarget.AllBuffered);
         jogadores = new List<PlayerNet>();
     }
-
-    //private int jogadorQuePausou = -1;
 
     private void Update()
     {
@@ -108,10 +107,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         jogadoresEmJogo ++;
 
-        if (PhotonNetwork.IsMasterClient && jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
+        if (/*PhotonNetwork.IsMasterClient && */ jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
         {
             photonView.RPC("CriaJogador", RpcTarget.AllBuffered);
-            Debug.Log("CHAMOU O CRIA JOGADOR: "+jogadoresEmJogo);
+            Debug.LogWarning("CHAMOU O CRIA JOGADOR: "+jogadoresEmJogo);
         }
         Debug.Log(jogadoresEmJogo);
     }
@@ -139,7 +138,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 jogador.photonView.RPC("Inicialize", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer, jogadorIndex);
 
-                Debug.Log($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
+                Debug.LogWarning($"Jogador {PhotonNetwork.LocalPlayer.NickName} spawnado na posição {jogadorIndex}.");
             }
             else
             {
@@ -152,7 +151,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             Invoke("FindSpawn", 0.3f);
         }
     }
-
     private void FindSpawn()
     {
         for (int i = 0; i < spawns.Length; i++)
@@ -205,7 +203,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private IEnumerator CheckEmpateDelayed()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.6f);
         UpdateEmpate();
     }
 
