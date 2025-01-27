@@ -65,8 +65,22 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
 
     public void SairDoLobby()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("DesconectarTodos", RpcTarget.Others);
+        }
         PhotonNetwork.LeaveRoom();
     }
+
+    [PunRPC]
+    void DesconectarTodos()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("Menu");
+    }
+
+
 
     [PunRPC]
     public void ComecaJogo( string nomeCena)
