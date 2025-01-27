@@ -59,8 +59,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 return;
             }
             ClosePause();
-        }
-        
+        } 
     }
 
     public void OpenPause()
@@ -107,7 +106,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         jogadoresEmJogo ++;
 
-        if (/*PhotonNetwork.IsMasterClient && */ jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
+        if (PhotonNetwork.IsMasterClient &&  jogadoresEmJogo == PhotonNetwork.PlayerList.Length)
         {
             photonView.RPC("CriaJogador", RpcTarget.AllBuffered);
             Debug.LogWarning("CHAMOU O CRIA JOGADOR: "+jogadoresEmJogo);
@@ -203,7 +202,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private IEnumerator CheckEmpateDelayed()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.4f);
         UpdateEmpate();
     }
 
@@ -218,28 +217,4 @@ public class GameManager : MonoBehaviourPunCallbacks
             Instance.Botoes.SetActive(true);
         }
     }
-
-    [PunRPC]
-    public void UpdateVitoria()
-    {
-        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
-        {
-            GameManager.Instance.placarDerrota.SetActive(false);
-            GameManager.Instance.placarVitoria.SetActive(true);
-            GameManager.Instance.Botoes.SetActive(true);
-        }
-    }
-
-    [PunRPC]
-    public void UpdateDerrota()
-    {
-        if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
-        {
-            GameManager.Instance.placarVitoria.SetActive(false);
-            GameManager.Instance.placarDerrota.SetActive(true);
-            GameManager.Instance.Botoes.SetActive(true);
-        }
-    }
-
-
 }

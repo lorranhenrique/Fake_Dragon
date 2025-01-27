@@ -74,8 +74,6 @@ public class Menu : MonoBehaviourPunCallbacks
     public void SairDoLobby()
     {
         GestorDeRede.Instance.SairDoLobby();
-        /* menuLobby.gameObject.SetActive(false);
-         menuEntrada.gameObject.SetActive(true);*/
         PhotonNetwork.LoadLevel("Menu");
     }
 

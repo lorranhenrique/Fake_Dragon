@@ -116,7 +116,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-
     void UpdateSounds(int posicaoVetor, bool ligado)
     {
         if (ligado)
@@ -308,7 +307,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     void UpdateDeath()
     {
         GameManager.Instance.VerificaFimDeJogo();
-        Invoke("score", 0.5f);
+        Invoke("score", 0.3f);
     }
 
     [PunRPC]
@@ -324,11 +323,13 @@ public class PlayerNet : MonoBehaviourPunCallbacks
             if (photonPlayer.IsLocal)
             {
                 GameManager.Instance.placarDerrota.SetActive(true);
+                GameManager.Instance.placarVitoria.SetActive(false);
                 GameManager.Instance.Botoes.SetActive(true);
             }
             else
             {
                 GameManager.Instance.placarVitoria.SetActive(true);
+                GameManager.Instance.placarDerrota.SetActive(false);
                 GameManager.Instance.Botoes.SetActive(true);
             }
         }
@@ -339,8 +340,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
         {
-            GameManager.Instance.placarDerrota.SetActive(false);
             GameManager.Instance.placarVitoria.SetActive(true);
+            GameManager.Instance.placarDerrota.SetActive(false);
             GameManager.Instance.Botoes.SetActive(true);
         }
     }
@@ -350,8 +351,8 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (GameManager.Instance != null && !GameManager.Instance.placarEmpate.activeSelf)
         {
-            GameManager.Instance.placarVitoria.SetActive(false);
             GameManager.Instance.placarDerrota.SetActive(true);
+            GameManager.Instance.placarVitoria.SetActive(false);
             GameManager.Instance.Botoes.SetActive(true);
         }
     }
