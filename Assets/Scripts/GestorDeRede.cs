@@ -23,12 +23,12 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Conexão com o servidor Photon bem-sucedida!");
+        Debug.Log("Conexï¿½o com o servidor Photon bem-sucedida!");
     }
 
     public override void OnDisconnected(Photon.Realtime.DisconnectCause cause)
     {
-        Debug.LogError($"Falha na conexão: {cause}");
+        Debug.LogError($"Falha na conexï¿½o: {cause}");
     }
 
     public void CriaSala(string nomeSala)
@@ -64,7 +64,7 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     }
 
     public void SairDoLobby()
-    { 
+    {
         PhotonNetwork.LeaveRoom();
     }
 
@@ -73,8 +73,4 @@ public class GestorDeRede : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Scene 1");
     }
-
-
-
-
 }
