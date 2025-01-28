@@ -300,7 +300,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-        photonView.RPC("updateGameState", RpcTarget.AllBuffered);
+        photonView.RPC("updateGameState", RpcTarget.All);
         UpdateDeath();
     }
 
@@ -320,20 +320,24 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     {
         if (GameManager.Instance != null)
         {
+            GameManager.Instance.placarVitoria.SetActive(false);
+            GameManager.Instance.placarDerrota.SetActive(false);
+            GameManager.Instance.placarEmpate.SetActive(false);
+            GameManager.Instance.Botoes.SetActive(false);
+
             if (photonPlayer.IsLocal)
             {
                 GameManager.Instance.placarDerrota.SetActive(true);
-                GameManager.Instance.placarVitoria.SetActive(false);
-                GameManager.Instance.Botoes.SetActive(true);
             }
             else
             {
                 GameManager.Instance.placarVitoria.SetActive(true);
-                GameManager.Instance.placarDerrota.SetActive(false);
-                GameManager.Instance.Botoes.SetActive(true);
             }
+
+            GameManager.Instance.Botoes.SetActive(true);
         }
     }
+
 
     [PunRPC]
     public void UpdateVitoria()
