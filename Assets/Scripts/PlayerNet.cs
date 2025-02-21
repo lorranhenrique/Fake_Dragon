@@ -38,7 +38,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
     public float megaShotForce;
 
     public bool isBurned;
-    public float burnCooldown;
+    private float burnCooldown = 2.8f;
 
     public int life;
     public int maxLife;
