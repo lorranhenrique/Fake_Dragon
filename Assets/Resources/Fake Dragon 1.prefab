@@ -5438,7 +5438,6 @@ MonoBehaviour:
   shotForce: 15
   megaShotForce: 60
   isBurned: 0
-  burnCooldown: 3.5
   life: 3
   maxLife: 3
   coracao:
