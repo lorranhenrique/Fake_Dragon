@@ -7,6 +7,7 @@ public class Menu : MonoBehaviourPunCallbacks
     [SerializeField] private MenuLobby menuLobby;
     [SerializeField] private TelaDeCarregamento telaDeCarregamento;
     [SerializeField] private TelaDePause telaDePause;
+    [SerializeField] private GameObject pressSpace;
 
     private void Start()
     {
@@ -19,6 +20,13 @@ public class Menu : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.Escape)) { 
             OpenPause();
+        }
+
+        if (pressSpace.activeSelf && menuLobby != null && Input.GetKeyDown(KeyCode.Space))
+        {
+            telaDeCarregamento.gameObject.SetActive(false);
+            menuEntrada.gameObject.SetActive(true);
+            pressSpace.SetActive(false);
         }
     }
 
@@ -45,12 +53,9 @@ public class Menu : MonoBehaviourPunCallbacks
     }
 
     public override void OnConnectedToMaster()
-    {   
-        if(menuLobby != null)
-        { 
-            telaDeCarregamento.gameObject.SetActive(false);
-            menuEntrada.gameObject.SetActive(true);
-        }
+    {
+        pressSpace.SetActive(true);
+       
     }
 
     public override void OnJoinedRoom()
