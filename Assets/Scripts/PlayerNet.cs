@@ -338,7 +338,6 @@ public class PlayerNet : MonoBehaviourPunCallbacks
         }
     }
 
-
     [PunRPC]
     public void UpdateVitoria()
     {
@@ -374,7 +373,7 @@ public class PlayerNet : MonoBehaviourPunCallbacks
 
     void gravityJump()
     {
-        if (this.isJumping && !Input.GetKey(KeyCode.Space))
+        if (this.isJumping && !Input.GetButton("Jump"))
         {
            applyJumpExtraGravity();
         }

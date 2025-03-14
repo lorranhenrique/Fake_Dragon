@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Icone Fake Dragon Sem Fundo ft_0: 6684704945608538853
+      Icone Fake Dragon Sem Fundo ft_1: 690278240426429529
+      Icone Fake Dragon Sem Fundo ft_2: 3889400285476455653
+      Icone Fake Dragon Sem Fundo ft_3: -5838477947947952207
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
