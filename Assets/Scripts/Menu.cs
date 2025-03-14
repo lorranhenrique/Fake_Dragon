@@ -8,6 +8,7 @@ public class Menu : MonoBehaviourPunCallbacks
     [SerializeField] private TelaDeCarregamento telaDeCarregamento;
     [SerializeField] private TelaDePause telaDePause;
     [SerializeField] private GameObject pressSpace;
+    [SerializeField] private GameObject controls;
 
     private void Start()
     {
@@ -43,6 +44,24 @@ public class Menu : MonoBehaviourPunCallbacks
     public void ClosePause()
     {
         telaDePause.gameObject.SetActive(false);
+    }
+
+    public void OpenControls()
+    {
+        if (!controls.activeSelf)
+        {
+            controls.SetActive(true);
+            telaDePause.gameObject.SetActive(false);
+            return;
+        }
+        CloseControls();
+    }
+
+    public void CloseControls()
+    {
+        controls.SetActive(false);
+        telaDePause.gameObject.SetActive(true);
+
     }
 
     public void ReturnMenu()
